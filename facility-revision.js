@@ -2,6 +2,9 @@
 // Independent adaptation of the original game: the existing scene IDs and flags
 // are intentionally retained for compatibility with saved games.
 (() => {
+  // A maintenance console no longer recruits the old fantasy companion.
+  const legacyId=REQUIRED_PARTY.indexOf('ode');
+  if(legacyId>=0)REQUIRED_PARTY.splice(legacyId,1);
   const ward=MAPS.ward;
   ward.name='저택 지하 병동';
   ward.mission='감시를 피해서 기록과 설비 제어함을 조사하자';

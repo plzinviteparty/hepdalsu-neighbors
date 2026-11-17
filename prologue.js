@@ -1,6 +1,17 @@
 'use strict';
 // Dedicated pixel-art prologue plates. Rendered at the game's 640x384 logical resolution.
+const PROLOGUE_ILLUSTRATIONS = Object.fromEntries([['road','art/roadside-illustration.svg'],['mansion','art/mansion-illustration.svg']].map(([id,src])=>{const img=new Image();img.src=src;return [id,img]}));
 function drawProloguePlate(step,time,ctx){
+ const artId=step<=4?'road':step<=7?'mansion':null;
+ const art=artId&&PROLOGUE_ILLUSTRATIONS[artId];
+ if(art && art.complete && art.naturalWidth){
+  ctx.save();ctx.imageSmoothingEnabled=true;ctx.imageSmoothingQuality='high';
+  ctx.drawImage(art,0,0,640,384);
+  if(step===1){ctx.fillStyle='rgba(217,224,218,0.13)';ctx.fillRect(0,0,640,384)}
+  if(step===7){ctx.fillStyle='rgba(5,6,9,0.55)';ctx.fillRect(0,0,640,384)}
+  ctx.restore();return;
+ }
+
  const W=640,H=384;
  const rect=(x,y,w,h,c)=>{ctx.fillStyle=c;ctx.fillRect(Math.round(x),Math.round(y),Math.round(w),Math.round(h))};
  const line=(x1,y1,x2,y2,c,w=1)=>{ctx.strokeStyle=c;ctx.lineWidth=w;ctx.beginPath();ctx.moveTo(x1,y1);ctx.lineTo(x2,y2);ctx.stroke()};

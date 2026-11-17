@@ -7,7 +7,7 @@ let rasterLoaded=typeof Image==='undefined';
 const rasterPromise=typeof Image==='undefined'?Promise.resolve():Promise.all([...new Set([ALTAR_ART,...Object.values(RASTER_MANIFEST.sprites).flatMap(Object.values),...Object.values(RASTER_MANIFEST.props),...Object.values(RASTER_MANIFEST.textures).flatMap(Object.values)])].map(src=>new Promise(resolve=>{const im=new Image();im.onload=()=>{rasterImages[src]=im;resolve()};im.onerror=()=>{rasterErrors.push(src);resolve()};im.src=src;}))).then(()=>{rasterLoaded=true});
 const SPRITE_HEIGHT={robe:82,nasol:82,jubin:82,changwon:82,player:82,kim:82,man:94,ode:76,monsterHachi:142,hachi:53,usagi:66,chiikawa:53,alien:64,cat:36,briano:82,lemming:65};
 function drawRasterSprite(kind,x,y,face='down'){
- kind=({bigcat:'monsterHachi',smallcat:'chiikawa',rabbit:'usagi',nurse:'lemming',doctor:'briano',alien:'lemming'})[kind]||kind;
+ kind=({bigcat:'monsterHachi',smallcat:'chiikawa',rabbit:'usagi',nurse:'briano',doctor:'briano',alien:'lemming'})[kind]||kind;
  const frames=RASTER_MANIFEST.sprites[kind];if(!frames)return false;
  const im=rasterImages[frames[face]||frames.down];if(!im)return false;
  const h=SPRITE_HEIGHT[kind],w=Math.round(h*im.naturalWidth/im.naturalHeight),left=Math.round(x-w/2),top=Math.round(y-h);

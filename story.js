@@ -271,3 +271,41 @@ SCRIPTS.mirrorEmpty=[T('거울 아래를 살펴봤다. 더 이상 떨어진 물�
 SCRIPTS.recordChecked=[T('이미 살펴본 기록철이다. 사이에 끼워진 물건은 없다.')];
 SCRIPTS.pianoKnown=[T('이미 눌러 본 피아노 건반이다. 더 살펴볼 것은 없다.')];
 SCRIPTS.chalkMarked=[T('분필로 그린 화살표가 남아 있다. 이미 표시한 벽이다.')];
+
+
+// The mansion hall is no longer a fantasy party. Preserve event IDs for old saves.
+MAPS.prom.name='저택 연회장';
+MAPS.prom.mission='연회장을 조사하고 잠긴 출구를 열자';
+MAPS.prom.objects.find(o=>o.id==='man').kind='robe';
+MAPS.prom.objects.find(o=>o.id==='man').label='흰 옷을 입은 사람';
+const hallDocument=MAPS.prom.objects.find(o=>o.id==='bone');
+hallDocument.kind='book';
+hallDocument.label='접힌 안내문';
+hallDocument.hide='hallNoteRead';
+MAPS.prom.props=MAPS.prom.props.filter(([kind])=>kind!=='stage');
+MAPS.prom.props.push(['fireplace',18,4],['table',19,8]);
+SCRIPTS.man=[
+ T('흰 천옷을 입은 사람이 서 있었다. 나를 보자 입꼬리를 올렸다.'),
+ T('다른 사람들도 같은 옷을 입고 있었다. 웃는 표정까지 비슷했다.'),
+ T('여기서 나가는 문이 어디예요?'),
+ T('그 사람은 대답하지 않았다. 웃는 얼굴 그대로 나를 보고 있을 뿐이었다.'),
+ F('metMan')
+];
+SCRIPTS.manChoice=SCRIPTS.man;
+SCRIPTS.leaveMan=[T('더 말을 걸어 봐도 대답이 없었다.')];
+SCRIPTS.giveBones=[T('남자는 아무 말도 하지 않았다. 그의 손에는 아무것도 들려 있지 않았다.')];
+SCRIPTS.bonesEnd=[T('지금은 이곳에서 나갈 방법을 찾는 게 먼저다.')];
+SCRIPTS.bone=[
+ T('탁자 아래에 종이가 반쯤 끼어 있었다. 접힌 부분을 펼쳤다.'),
+ T('「방문자는 공동생활관의 안내에 따라 주십시오. 외부 출입문은 정해진 절차에 따라 개방합니다.」'),
+ T('종이 아래에는 같은 문장이 작은 글씨로 여러 번 인쇄돼 있었다.'),
+ F('hallNoteRead')
+];
+SCRIPTS.danceIntro=[T('연회장 한쪽에서 누군가 박수를 쳤다. 돌아보니 모두 가만히 서 있었다.')];
+SCRIPTS.needDance=[T('출입문은 잠겨 있었다. 열쇠가 필요하다.')];
+SCRIPTS.needBone=[T('탁자 아래에 접힌 종이가 보인다.')];
+SCRIPTS.wrist=[T('손목은 멀쩡했다. 손바닥에 난 상처가 욱신거렸다.')];
+SCRIPTS.mirror=[T('거울에 흰 옷을 입은 사람들이 비쳤다. 그중 몇 명이 나를 보고 있었다.'),F('mirrorSeen'),T('거울 아래에 작은 물건이 떨어져 있었다.')];
+SCRIPTS.cat=[T('무언가 발치로 스쳐 지나간 것 같았다. 돌아봤지만 아무것도 없었다.'),T('가구 아래에 열쇠 뭉치가 떨어져 있었다.'),I('keys'),F('catFound'),T('열쇠를 챙겼다. 북쪽 출입문에 맞을지도 모른다.')];
+SCRIPTS.exitPromOpen=[R('landing',4,6)];
+SCRIPTS.hallSmile=[T('다들 똑같은 흰 천옷을 걸치고 웃고 있었다.'),T('가까이서 보니 웃는 표정이 자연스럽지 않았다. 말을 걸어도 아무도 대답하지 않았다.')];

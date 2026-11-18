@@ -64,14 +64,13 @@ function performSave(slot){if(putSlot(slot)){saves();notify('세이브 '+slot+' 
 function saves(){const p=modal('저장 / 불러오기','saves');paragraph(p,'같은 기기·브라우저에서 다음에 접속해도 이어 할 수 있습니다.\n위치·소지품·동행·대화·선택지까지 저장됩니다.','small');for(const slot of ['auto','1','2','3']){const doc=getSlot(slot);const card=document.createElement('div');card.className='slot';const strong=document.createElement('strong');strong.textContent=slot==='auto'?'AUTO / 자동 저장':'SAVE '+slot;card.append(strong);paragraph(card,doc?doc.place+'\n'+new Date(doc.savedAt).toLocaleString('ko-KR',{timeZone:'Asia/Seoul'})+' · '+Math.floor(doc.state.playTime/60)+'분':'비어 있는 슬롯','small');const r=row(card);if(slot!=='auto'){const b=button(r,'여기에 저장',()=>saveSlot(slot));b.disabled=!started||ended}const b=button(r,'불러오기',()=>{if(!doc)return;const q=modal('저장 시점으로 돌아갈까?');paragraph(q,'저장 후의 진행은 되돌아갑니다. 발견한 엔딩 기록은 유지됩니다.');const rr=row(q);button(rr,'불러오기',()=>restore(slot),'primary');button(rr,'취소',saves)});b.disabled=!doc;p.append(card)}button(row(p),started&&!ended?'게임으로':'시작 화면',()=>started&&!ended?closeModal():title())}
 function journal(){const p=modal('탐험 기록');const f=s.flags;const notes=['목표: 저택을 나가 집으로 돌아가기.'];if(f.dalsuKnown)notes.push('신문: 지역 공동체 대표 허달수.');if(f.readRecord)notes.push('관찰 기록: 외부 접촉 제한 및 투약 내역 별도 관리.');if(f.catFound)notes.push('가구 아래에서 찾은 열쇠로 연회장 문을 열었다.');if(f.marked)notes.push('백룸: 동쪽 아래에서 의자 소리. 분필 화살표를 따라갈 수 있다.');if(f.buttonTried)notes.push('저수조 배수구의 점검 절차를 확인했다.');if(f.penFound)notes.push('난간 아래에서 검은 볼펜을 주웠다.');paragraph(p,notes.join('\n\n'));button(row(p),'게임으로',closeModal,'primary')}
 function showEndings(){const p=modal('엔딩 기록 '+endingSeen.length+' / '+Object.keys(ENDINGS).length,'endings');const list=document.createElement('div');list.className='endingList';for(const [id,e] of Object.entries(ENDINGS)){const d=document.createElement('div');d.textContent=e.type+' · '+(endingSeen.includes(id)?e.title:'미발견');const hint=document.createElement('small');hint.textContent=e.hint;d.append(hint);list.append(d)}p.append(list);paragraph(p,'불러오기를 해도 발견한 엔딩 기록은 유지됩니다.','small');button(row(p),started&&!ended?'게임으로':'시작 화면',()=>started&&!ended?closeModal():title())}
-const CREDIT_NAMES=['HOST','베일 아래 팜므파탈','Gin','daddy','대리님 혹시 잊으신 것 없습니까?','경비 시체','사슴 사탕 주지 마세요','_enter','동글동글 동글이','익명의남자','파스타 밥돌이','못 지나가요!','어떻게 개 이름이','Morceaux de Fantaisie','사랑의 아츄핑','부인은 안 하네','TOT','8','목숨을 버리면 아이템만은 살려 주겠다','아니 장난을 치라고',"L'arrivée d'un train à La Ciot",'POOR PONY','I Predict a Riot','밥빙기','내 얼굴에 침을 뱉어라','Undoing','비겁하다 욕하지 마','모찌 나가요~','통모짜핫도그','빵또아','솔직히 말해 이 코트 위 네 모습이','29786897221','치이카와','인사동갱스터','금붕어'];
 function finish(id){ended=true;s.ending=id;s.flags.chaseActive=false;if(!endingSeen.includes(id))endingSeen.push(id);try{localStorage.setItem(STORE+'-endings',JSON.stringify(endingSeen))}catch{}const e=ENDINGS[id],p=modal(null,'ending');paragraph(p,e.type,'eyebrow');const h=document.createElement('h2');h.textContent=e.title;p.append(h);paragraph(p,id==='altar'&&s.altar?.cause==='caught'?'뒤에서 돌이 구르는 소리가 가까워졌다.\n문고리에 손이 닿기 전에 머리 하나가 내 앞을 막았다.\n\n돌가루를 털어 내려고 했는데 손이 움직이지 않았다.\n내 아래에도 받침대가 있었다.':e.text,'endText');if(id==='normal')paragraph(p,'발견한 동료 '+REQUIRED_PARTY.filter(x=>s.party.includes(x)).length+' / '+REQUIRED_PARTY.length,'small');button(row(p),'다음 · 엔딩 크레딧',showCredits,'primary');sound(id==='happy'?523:110,.8)}
 function showCredits(){
  const p=modal(null,'credits');p.className='panel creditsPanel';const viewport=document.createElement('div');viewport.className='creditsViewport';const roll=document.createElement('div');roll.className='creditsRoll';
  paragraph(roll,'A PSYCHOLOGICAL HORROR GAME','creditsEyebrow');
  paragraph(roll,'허달수의 다정한 이웃들','creditsGame');
  paragraph(roll,'STORY & SCENARIO','creditsRole');
- paragraph(roll,'시나리오 · 세계관 개편','creditsDetail');
+ paragraph(roll,'시나리오 · 세계관','creditsDetail');
  paragraph(roll,'HOST','creditsWriter');
  paragraph(roll,'GAME DESIGN','creditsRole');
  paragraph(roll,'게임 기획 · 퍼즐 설계 · 연출','creditsDetail');
@@ -79,12 +78,6 @@ function showCredits(){
  paragraph(roll,'DEVELOPMENT & ART DIRECTION','creditsRole');
  paragraph(roll,'AI 활용 개발 · 그래픽 제작 및 디렉팅','creditsDetail');
  paragraph(roll,'HOST','creditsWriter');
- paragraph(roll,'BASED ON','creditsRole');
- paragraph(roll,'후두부가 웃는군','creditsGame');
- paragraph(roll,'대저택의 핼러윈 파티 · 릴레이소설 및 원형 게임','creditsDetail');
- paragraph(roll,'ORIGINAL CONTRIBUTORS','creditsRole');
- for(const name of CREDIT_NAMES)paragraph(roll,name,'creditsName');
- paragraph(roll,'원안과 함께해 주신 모든 귀빈 여러분께 감사드립니다.','creditsThanks');
  paragraph(roll,'플레이해 주셔서 감사합니다.','creditsThanks');
  viewport.append(roll);p.append(viewport);roll.onanimationend=()=>{if(modalKind==='credits')postEnding()};button(row(p),'크레딧 건너뛰기',postEnding);if(typeof window.matchMedia==='function'&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){roll.style.animation='none';roll.style.transform='none';viewport.style.overflow='auto';button(row(p),'끝으로 · 메뉴',postEnding)}
 }

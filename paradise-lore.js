@@ -47,7 +47,9 @@
  const scientistIntro=[
   T('은성제약에서 연구원으로 일했습니다. 퇴직 준비 중이었고요.','이철민'),
   T('전염병 백신을 연구했습니다. 국내에서는 거의 발생하지 않는 감염병이라 해외 수출을 염두에 둔 연구였어요.','이철민'),
-  T('우성제약은 저희 경쟁사예요.','이철민')
+  T('우성제약은 저희 경쟁사예요.','이철민'),
+  T('여기서는 퇴직하면 이곳에서 일하라고 하더군요. 지낼 곳도 마련해 준다고요.','이철민'),
+  T('그런데 거절하고 나가겠다고 하니까 출입증부터 가져갔습니다.','이철민')
  ];
  SCRIPTS.changwonWait=[
   T('이철민이라고 합니다. 출입증을 잃어버려서 여기 갇혔습니다.','이철민'),
@@ -117,6 +119,27 @@
   T('「유가족 면담: 충분한 기도가 이루어지지 못한 데 따른 결과임을 설명할 것.」'),
   T('투약 기록은 별도로 적혀 있었으나 사망 원인에 관한 의학적 설명은 보이지 않았다.'),
   I('incidentMemo'),F('incidentMemoRead')
+ ];
+
+
+ // Separate confinement motives: recruitment of a skilled researcher and retaliation against an investor.
+ MAPS.research.objects.push(O('recruitmentNote',10,9,'book','연구 인력 면담 기록'));
+ ITEMS.recruitmentNote=['연구 인력 면담 기록','이철민의 퇴직 이후 연구직 채용과 입소 회유에 관한 내부 기록. 피실험자 명단과는 구분되어 있다.'];
+ SCRIPTS.recruitmentNote=[
+  T('연구 인력 면담 기록. 대상자: 이철민. 소속: 은성제약.'),
+  T('「백신 연구 경력 보유. 퇴직 예정. 연구 인력으로 영입할 가치가 높음.」'),
+  T('「숙소 제공 및 공동체 생활 권유. 입교 의사 확인 전까지 외부 복귀 보류.」'),
+  T('하단에 허달수의 결재가 있었다. 다른 대상자들의 검사 기록과 달리 연구원 채용에 관한 내용뿐이었다.'),
+  I('recruitmentNote'),F('recruitmentClue')
+ ];
+ MAPS.ward.objects.push(O('investorNote',12,11,'book','외부 접촉 관리 기록'));
+ ITEMS.investorNote=['외부 접촉 관리 기록','차준영의 우성제약 투자금 회수와 외부 발언을 문제 삼은 허달수의 지시가 적혀 있다.'];
+ SCRIPTS.investorNote=[
+  T('종이에 차준영의 이름이 적혀 있었다.'),
+  T('「우성제약 투자금 회수 진행. 환자 사망 관련 소문 인지. 외부 연락 및 면회 일체 금지.」'),
+  T('허달수의 이름 옆에는 볼펜으로 덧쓴 문장이 있었다.'),
+  T('「우리에게 손해를 끼친 사람입니다. 함부로 입을 놀리고도 아무 일 없이 돌아가는 일이 없도록 하세요.」'),
+  I('investorNote'),F('investorClue')
  ];
 
  SCRIPTS.intro=SCRIPTS.intro.filter(n=>n.who!=='개발 안내');

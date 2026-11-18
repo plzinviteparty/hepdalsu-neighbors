@@ -28,7 +28,7 @@
  ITEMS.newspaper=['오래된 신문','지역 봉사단체 대표 허달수의 인터뷰 기사. 저택 사진과 함께 실려 있다.'];
  SCRIPTS.newspaper=[
   T('책상에 접힌 신문이 있었다. 날짜는 몇 년 전이었다.'),
-  T('「지역 공동체에 문을 여는 사람들」\\n사진 아래에 ‘대표 허달수’라고 적혀 있었다.'),
+  T('「지역 공동체에 문을 여는 사람들」\n사진 아래에 ‘대표 허달수’라고 적혀 있었다.'),
   T('사진 속 남자는 저택 앞에 서 있었다. 양옆에는 흰 옷을 입은 사람들이 줄지어 있었다.'),
   I('newspaper'),F('dalsuKnown')
  ];
@@ -45,9 +45,9 @@
   T('여기서 뭘 하고 계세요?'),
   T('아직 계셨네요.','남자'),
   T('혹시 여기가 댁이에요?'),
-  T('허달수 씨를 아십니까?','남자'),
-  T('그는 내 대답을 기다리지 않았다.'),
-  T('처음 뵙겠습니다. 허달수입니다.','남자'),
+  T('제 이름은 허달수입니다.','남자'),
+  T('남자는 여전히 고개를 기울인 채 나를 봤다.'),
+  T('그러고 보니 댁에서는 연락이 안 오던가요?','허달수'),
   T('……',''),
   F('dalsuEncounter'),
   R('loop',25,12),
@@ -113,7 +113,7 @@
   T('오른쪽 비상문까지 달리세요. 가구를 피해 이동하세요.','추격전'),
   F('chaseActive')
  ];
- ENDINGS.tofu={type:'BAD END 03',title:'다시 입실',text:'문까지 몇 걸음 남지 않았다.\\n\\n등 뒤에서 팔을 잡는 손이 느껴졌다. 발이 바닥에서 떨어졌다.\\n\\n눈을 떴을 때, 나는 병동의 침대에 누워 있었다.',hint:'연결 통로에서 뒤따라오는 사람을 따돌리자.'};
+ ENDINGS.tofu={type:'BAD END 03',title:'다시 입실',text:'문까지 몇 걸음 남지 않았다.\n\n등 뒤에서 팔을 잡는 손이 느껴졌다. 발이 바닥에서 떨어졌다.\n\n눈을 떴을 때, 나는 병동의 침대에 누워 있었다.',hint:'연결 통로에서 뒤따라오는 사람을 따돌리자.'};
  map.wreck.name='지하 비상 대피실';map.wreck.theme='ward';map.wreck.mission='출입 기록과 출구를 확인하자';
  const rec=map.wreck.objects.find(o=>o.id==='family');rec.kind='book';rec.label='폐쇄 구역 출입 기록';
  map.wreck.objects.find(o=>o.id==='wake').label='외부 통로';
@@ -188,11 +188,11 @@
  ];
  SCRIPTS.normalEnd=[J('exitRealityCheck')];
  map.lab.name='별관 관찰실';
- ENDINGS.normal={type:'NORMAL END',title:'아직 계셨네요',text:'도로 위를 몇 번이나 걸었다.\\n\\n저택은 어느 방향으로 돌아서도 같은 곳에 있었다.\\n\\n창문 하나에 불이 켜져 있었다.',hint:'밖으로 나가는 길이 정말 하나뿐이었을까?'};
- ENDINGS.happy={type:'HAPPY END',title:'모두 밖으로',text:'날이 밝았다. 지나가는 차를 세울 수 있었다.\\n\\n돌아보니 네 사람이 아직 그 자리에 있었다. 철문 너머의 저택은 멀어졌다.',hint:'모든 동료와 함께 출구에 도착하자.'};
- ENDINGS.realSolo={type:'ESCAPE END',title:'남겨 둔 불빛',text:'도로 위에 사람이 있었다. 구조를 요청했다.\\n\\n나는 밖으로 나왔다. 그렇지만 저택 안에 남은 사람들의 이름이 머릿속에서 떠나지 않았다.',hint:'출구까지 도달하는 것만으로 충분할까?'};
- ENDINGS.truth={type:'TRUE END',title:'남은 것',text:'장비의 표시등이 깜빡였다.\\n\\n내가 느끼는 손의 감각과 발소리, 창문 밖의 바람. 그 모든 것이 여기서 시작됐다는 것을 알았다.\\n\\n허달수는 그날 나를 보내 주지 않았다.',hint:'도중에 마주친 일과 마지막 관찰실을 확인하자.'};
- ENDINGS.bones={type:'BAD END 01',title:'공동생활관',text:'모두가 웃고 있었다.\\n\\n나는 같은 자리에 서서 문이 열리기를 기다렸다.',hint:'연회장에서 나갈 방법을 찾아야 한다.'};
+ ENDINGS.normal={type:'NORMAL END',title:'아직 계셨네요',text:'도로 위를 몇 번이나 걸었다.\n\n저택은 어느 방향으로 돌아서도 같은 곳에 있었다.\n\n창문 하나에 불이 켜져 있었다.',hint:'밖으로 나가는 길이 정말 하나뿐이었을까?'};
+ ENDINGS.happy={type:'HAPPY END',title:'모두 밖으로',text:'날이 밝았다. 지나가는 차를 세울 수 있었다.\n\n돌아보니 네 사람이 아직 그 자리에 있었다. 철문 너머의 저택은 멀어졌다.',hint:'모든 동료와 함께 출구에 도착하자.'};
+ ENDINGS.realSolo={type:'ESCAPE END',title:'남겨 둔 불빛',text:'도로 위에 사람이 있었다. 구조를 요청했다.\n\n나는 밖으로 나왔다. 그렇지만 저택 안에 남은 사람들의 이름이 머릿속에서 떠나지 않았다.',hint:'출구까지 도달하는 것만으로 충분할까?'};
+ ENDINGS.truth={type:'TRUE END',title:'남은 것',text:'장비의 표시등이 깜빡였다.\n\n내가 느끼는 손의 감각과 발소리, 창문 밖의 바람. 그 모든 것이 여기서 시작됐다는 것을 알았다.\n\n허달수는 그날 나를 보내 주지 않았다.',hint:'도중에 마주친 일과 마지막 관찰실을 확인하자.'};
+ ENDINGS.bones={type:'BAD END 01',title:'공동생활관',text:'모두가 웃고 있었다.\n\n나는 같은 자리에 서서 문이 열리기를 기다렸다.',hint:'연회장에서 나갈 방법을 찾아야 한다.'};
  // Update old object scripts still reachable from carried saves.
  for(const [id,nodes] of Object.entries(SCRIPTS)){
    for(const n of nodes){

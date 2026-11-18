@@ -3,10 +3,11 @@ const RASTER_MANIFEST={"sprites": {"kim": {"down": "assets/kim-uniform-down.png"
 RASTER_MANIFEST.sprites.robe={down:'assets/cult-robe-down-final.png',left:'assets/cult-robe-down-final.png',right:'assets/cult-robe-down-final.png',up:'assets/cult-robe-down-final.png'};
 RASTER_MANIFEST.sprites.dalsu={down:'assets/dalsu-down.png'};
 RASTER_MANIFEST.props.dalsuEncounterArt='art/dalsu-encounter.webp';
-const ALTAR_ART='/ghost-hunt-halloween-party/occiput-relay/assets/altar-atlas-v2.png';
+RASTER_MANIFEST.props.crawlers='assets/crawler-sprites.png';
+const ALTAR_ART=null;
 const rasterImages={},rasterErrors=[];
 let rasterLoaded=typeof Image==='undefined';
-const rasterPromise=typeof Image==='undefined'?Promise.resolve():Promise.all([...new Set([ALTAR_ART,...Object.values(RASTER_MANIFEST.sprites).flatMap(Object.values),...Object.values(RASTER_MANIFEST.props),...Object.values(RASTER_MANIFEST.textures).flatMap(Object.values)])].map(src=>new Promise(resolve=>{const im=new Image();im.onload=()=>{rasterImages[src]=im;resolve()};im.onerror=()=>{rasterErrors.push(src);resolve()};im.src=src;}))).then(()=>{rasterLoaded=true});
+const rasterPromise=typeof Image==='undefined'?Promise.resolve():Promise.all([...new Set([...Object.values(RASTER_MANIFEST.sprites).flatMap(Object.values),...Object.values(RASTER_MANIFEST.props),...Object.values(RASTER_MANIFEST.textures).flatMap(Object.values)])].map(src=>new Promise(resolve=>{const im=new Image();im.onload=()=>{rasterImages[src]=im;resolve()};im.onerror=()=>{rasterErrors.push(src);resolve()};im.src=src;}))).then(()=>{rasterLoaded=true});
 const SPRITE_HEIGHT={dalsu:82,robe:82,nasol:82,jubin:82,changwon:82,player:82,kim:82,man:94,ode:76,monsterHachi:142,hachi:53,usagi:66,chiikawa:53,alien:64,cat:36,briano:82,lemming:65};
 function drawRasterSprite(kind,x,y,face='down'){
  kind=({bigcat:'monsterHachi',smallcat:'chiikawa',rabbit:'usagi',nurse:'briano',doctor:'briano',alien:'lemming'})[kind]||kind;
@@ -18,7 +19,7 @@ function drawRasterSprite(kind,x,y,face='down'){
 const PROP_SIZE={chair:[37,55],fallenChair:[54,40],chairPile:[77,73],table:[105,76],bed:[66,99],door:[53,90],desk:[82,69],piano:[98,82],mirror:[42,82],plant:[48,68],lamp:[31,42],ufo:[156,112]};
 function drawRasterProp(kind,x,y){if(drawRasterSprite(kind,x,y))return true;const key=kind==='fireplace'?null:kind,src=RASTER_MANIFEST.props[key],im=src&&rasterImages[src];if(!im)return false;const [maxW,maxH]=PROP_SIZE[key],ratio=Math.min(maxW/im.naturalWidth,maxH/im.naturalHeight),w=Math.round(im.naturalWidth*ratio),h=Math.round(im.naturalHeight*ratio);shadow(x,y,Math.min(w*.7,82));cx.imageSmoothingEnabled=false;cx.drawImage(im,Math.round(x-w/2),Math.round(y-h),w,h);return true}
 function drawRasterTile(x,y){
- const m=MAPS[s.room],theme=({bedroom:'mansion',slime:'water',lab:'ward',yard:'backroom'})[m.theme]||m.theme,tx=RASTER_MANIFEST.textures[theme];if(!tx)return false;const floor=rasterImages[tx.floor],wall=rasterImages[tx.wall];if(!floor||!wall)return false;
+ const m=MAPS[s.room],theme=({altar:'mansion',bedroom:'mansion',slime:'water',lab:'ward',yard:'backroom'})[m.theme]||m.theme,tx=RASTER_MANIFEST.textures[theme];if(!tx)return false;const floor=rasterImages[tx.floor],wall=rasterImages[tx.wall];if(!floor||!wall)return false;
  const sx=x*TS-camera.x,sy=y*TS-camera.y,maze=s.room==='backroom'&&x%10===0&&x>0&&x<50&&collision(s.room).has(x+','+y),isWall=y<3||x===0||x===m.w-1||y===m.h-1||maze;
  cx.imageSmoothingEnabled=false;
  if(isWall){let sourceY,sourceH;if(y<3){sourceH=wall.naturalHeight/3;sourceY=y*sourceH}else{sourceH=wall.naturalHeight/3;const belowBlocked=collision(s.room).has(x+','+(y+1));sourceY=belowBlocked?64:wall.naturalHeight-sourceH}cx.drawImage(wall,(x%6)*64,sourceY,64,sourceH,sx,sy,32,32);if(x===0||x===m.w-1||maze){rect(sx,sy,3,32,'#1a172166');rect(sx+29,sy,3,32,'#15101d99')}if(y===2)rect(sx,sy+30,32,2,'#261c29')}else{cx.drawImage(floor,(x%6)*64,(y%8)*64,64,64,sx,sy,32,32);if(m.theme==='yard'){cx.fillStyle='#213f3e55';cx.fillRect(sx,sy,32,32)}if(m.theme==='slime'){cx.fillStyle='#7dcac32b';cx.fillRect(sx,sy,32,32)}}return true;
@@ -60,7 +61,7 @@ function drawAltarRasterHead(x,y,id,angry){
  if(angry){rect(x-16,y-48+bob,32,24,'#9d42351b');rect(x-13,y-39+bob,26,14,'#f4ab6814')}
  return altarArtCell(4+id,x-35,y+(angry?-74:-94)+bob,70,70);
 }
-function drawAltarFloorDetails(){
+function oldDrawAltarFloorDetails(){
  if(s.room!=='altar')return;
  // Faint inlaid brass bands connect the five pedestals, without adding collision.
  const x=13*TS+16-camera.x,y=12*TS+16-camera.y;
@@ -75,4 +76,20 @@ function drawAltarLighting(){
  }
  // Deep corners frame the walkable aisle; the route itself stays readable.
  rect(0,0,20,384,'#100b1d33');rect(620,0,20,384,'#100b1d33');
+}
+
+function drawAltarFloorDetails(){
+ if(s.room!=='altar')return;
+ // Warm, dark aisle over the locally stored raster floor. No statue markings.
+ for(let y=4;y<=26;y++)for(let x=11;x<=15;x++){const sx=x*TS-camera.x,sy=y*TS-camera.y;rect(sx,sy,32,32,'#521b2c68');if(x===11||x===15)rect(sx+(x===11?2:28),sy,2,32,'#b2965a77')}
+}
+function drawCrawlerFrame(x,y,id,face='down',moving=false,fallen=false){
+ const im=rasterImages[RASTER_MANIFEST.props.crawlers];if(!im||!im.naturalWidth)return false;
+ const row=face==='up'?2:face==='left'||face==='right'?1:0;
+ const frame=moving?Math.floor(frameTime*9+id*.8)%4:0,w=68,h=57;
+ cx.save();cx.translate(Math.round(x),Math.round(y));if(face==='right')cx.scale(-1,1);
+ cx.imageSmoothingEnabled=false;
+ if(fallen){cx.filter='brightness(0.62) saturate(.55)';cx.drawImage(im,48,40,48,40,-w/2,-31,w,33)}
+ else{shadow(0,0,Math.min(w*.7,42));cx.drawImage(im,frame*48,row*40,48,40,-w/2,-h,w,h)}
+ cx.restore();return true;
 }

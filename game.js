@@ -68,7 +68,24 @@ const CREDIT_NAMES=['HOST','베일 아래 팜므파탈','Gin','daddy','대리님
 function finish(id){ended=true;s.ending=id;s.flags.chaseActive=false;if(!endingSeen.includes(id))endingSeen.push(id);try{localStorage.setItem(STORE+'-endings',JSON.stringify(endingSeen))}catch{}const e=ENDINGS[id],p=modal(null,'ending');paragraph(p,e.type,'eyebrow');const h=document.createElement('h2');h.textContent=e.title;p.append(h);paragraph(p,id==='altar'&&s.altar?.cause==='caught'?'뒤에서 돌이 구르는 소리가 가까워졌다.\n문고리에 손이 닿기 전에 머리 하나가 내 앞을 막았다.\n\n돌가루를 털어 내려고 했는데 손이 움직이지 않았다.\n내 아래에도 받침대가 있었다.':e.text,'endText');if(id==='normal')paragraph(p,'발견한 동료 '+REQUIRED_PARTY.filter(x=>s.party.includes(x)).length+' / '+REQUIRED_PARTY.length,'small');button(row(p),'다음 · 엔딩 크레딧',showCredits,'primary');sound(id==='happy'?523:110,.8)}
 function showCredits(){
  const p=modal(null,'credits');p.className='panel creditsPanel';const viewport=document.createElement('div');viewport.className='creditsViewport';const roll=document.createElement('div');roll.className='creditsRoll';
- paragraph(roll,'원형 · 대저택의 핼러윈 파티','creditsGame');paragraph(roll,'허달수의 다정한 이웃들','creditsGame');paragraph(roll,'Written by','creditsRole');paragraph(roll,'귀빈','creditsWriter');paragraph(roll,'Special Thanks to','creditsRole');for(const name of CREDIT_NAMES)paragraph(roll,name,'creditsName');paragraph(roll,'기획·제작','creditsRole');paragraph(roll,'HOST','creditsWriter');paragraph(roll,'함께해 주신 모든 귀빈 여러분께 감사드립니다.','creditsThanks');
+ paragraph(roll,'A PSYCHOLOGICAL HORROR GAME','creditsEyebrow');
+ paragraph(roll,'허달수의 다정한 이웃들','creditsGame');
+ paragraph(roll,'STORY & SCENARIO','creditsRole');
+ paragraph(roll,'시나리오 · 세계관 개편','creditsDetail');
+ paragraph(roll,'HOST','creditsWriter');
+ paragraph(roll,'GAME DESIGN','creditsRole');
+ paragraph(roll,'게임 기획 · 퍼즐 설계 · 연출','creditsDetail');
+ paragraph(roll,'HOST','creditsWriter');
+ paragraph(roll,'DEVELOPMENT & ART DIRECTION','creditsRole');
+ paragraph(roll,'AI 활용 개발 · 그래픽 제작 및 디렉팅','creditsDetail');
+ paragraph(roll,'HOST','creditsWriter');
+ paragraph(roll,'BASED ON','creditsRole');
+ paragraph(roll,'후두부가 웃는군','creditsGame');
+ paragraph(roll,'대저택의 핼러윈 파티 · 릴레이소설 및 원형 게임','creditsDetail');
+ paragraph(roll,'ORIGINAL CONTRIBUTORS','creditsRole');
+ for(const name of CREDIT_NAMES)paragraph(roll,name,'creditsName');
+ paragraph(roll,'원안과 함께해 주신 모든 귀빈 여러분께 감사드립니다.','creditsThanks');
+ paragraph(roll,'플레이해 주셔서 감사합니다.','creditsThanks');
  viewport.append(roll);p.append(viewport);roll.onanimationend=()=>{if(modalKind==='credits')postEnding()};button(row(p),'크레딧 건너뛰기',postEnding);if(typeof window.matchMedia==='function'&&window.matchMedia('(prefers-reduced-motion: reduce)').matches){roll.style.animation='none';roll.style.transform='none';viewport.style.overflow='auto';button(row(p),'끝으로 · 메뉴',postEnding)}
 }
 function postEnding(){const p=modal('이야기가 끝났습니다','postEnding');paragraph(p,ENDINGS[s.ending]?.type+' · '+ENDINGS[s.ending]?.title);const r=row(p);button(r,'처음부터',confirmNew,'primary');button(r,'이어 하기 / 세이브 불러오기',saves);button(r,'엔딩 기록',showEndings);button(row(p),'크레딧 다시 보기',showCredits);button(row(p),'시작 화면',title)}

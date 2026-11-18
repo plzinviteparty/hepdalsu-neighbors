@@ -21,7 +21,7 @@
   T('기록철에는 네 명의 환자와 다섯 개의 투약 관리번호가 있다. 이름이 지워진 기록을 분리해 보관한 것 같다.'),
   match('evidence-ward','존재하지 않는 환자','침상 명부: 01, 02, 03, 04.\n투약 장부: 01, 02, 05, 03, 04.\n별도 기록: 05는 침상 명부 삭제, 외부 접촉 금지.\n기록 보관함의 분류표를 맞추자.',
    ['침상 명부와 일치하지 않는 번호','누락 기록의 분류'],[['02','04','05'],['정상 퇴실','외부 접촉 제한','자진 귀가']],[2,1],
-   {hintParty:'changwon',hintText:'이철민: 두 장부에 공통으로 없는 번호를 찾으면 됩니다. 삭제된 번호의 별도 기록도 확인해 보세요.'}),
+   {hintParty:'changwon',hintText:'이철민: 두 장부 중 한쪽에만 있는 번호를 찾으면 됩니다. 삭제된 번호의 별도 기록도 확인해 보세요.'}),
   T('잠긴 칸에서 관찰 기록을 꺼냈다. 환자들의 검사는 별도 관리되었고 외부와의 접촉은 제한되어 있었다. 사망 원인은 적혀 있지 않다.'),
   I('record'),F('readRecord'),T('뒷부분이 두껍다. 기록철을 한 번 더 살펴볼 수 있을 것 같다.')
  ];
@@ -69,22 +69,44 @@
    {hintParty:'changwon',hintText:'이철민: 해외 수출용 백신을 연구하던 건 제 경력입니다. 환자로 들어온 게 아니에요.'}),
   ...SCRIPTS.recruitmentNote
  ],'이철민의 연구 인력 면담 기록을 확보했다.');
+ // The research protocol itself must be reconstructed from separate files.
+ MAPS.research.objects.push(O('projectRecord',21,8,'book','봉인된 연구 계획철'));
+ ITEMS.projectRecord=['신인류 연구 계획서','허달수가 결재한 연구 계획. 감각 반응과 기억을 관찰하며 인간의 상태를 재구성하려는 목적이 적혀 있다. 치료 결과 보고서가 아니다.'];
+ once('projectRecord','projectClue',[
+  T('잠긴 계획철에는 분류되지 않은 연구 항목 세 개가 표시되어 있었다. 앞서 병동과 배관실에서 확인한 자료가 있어야 대조할 수 있을 것 같다.'),
+  match('evidence-project','연구 계획철 · 목적과 대상','서류 A: 일반 생수 입고 및 의식용 용기 충전.\n서류 B: 대상자 감각 반응 및 기억 변화 관찰, 외부 접촉 제한.\n서류 C: 백신 연구원 영입 면담.\n관찰 계획과 물품 공급, 인력 영입을 각각 분리하라.',
+   ['물품 공급','대상자 관찰','연구 인력'],[['B','C','A'],['C','B','A'],['A','B','C']],[2,1,2],
+   {requiresFlags:['readRecord','waterOrigin','recruitmentClue'],requiresNames:['병동 환자 기록','배관실 샘물 기록','연구 인력 기록'],hintParty:'changwon',hintText:'이철민: 이건 환자를 치료하고 퇴원시키는 연구 계획서가 아닙니다. 사람의 반응과 기억 자체를 관찰하고 있어요.'}),
+  T('「신인류 연구 / 책임자: 허달수」'),
+  T('「감각 반응의 유지 여부, 자기 인식 및 기억의 일관성을 반복 관찰할 것. 대상자의 외부 복귀는 별도 승인 전까지 보류한다.」'),
+  T('치료 경과에 관한 문장은 없었다. 문서의 목적란에는 인간을 더 나은 상태로 만드는 것이라고 적혀 있었다.'),
+  I('projectRecord'),F('projectClue')
+ ],'봉인된 연구 계획철은 이미 확인했다.');
+ // Recover the reporter's evidence through file reconstruction, preserving card and reaction scenes.
+ const originalPhotos=SCRIPTS.cameraPhotos;
+ SCRIPTS.cameraPhotos=[
+  T('메모리 카드에서 손상된 사진 파일의 미리보기를 찾았다. 파일의 일부가 깨졌으나 촬영 순서는 복원할 수 있을 것 같다.'),
+  seq('evidence-camera','취재 사진 복구','촬영 로그: 먼저 대문을 통과한다. 다음은 나무에 묶인 사람을 렌즈에 담고, 신도가 카메라 쪽을 돌아본 순간 기록이 끊긴다.',
+   ['플래시를 향해 돌아본 얼굴','대문 안쪽 정원','나무에 묶인 사람'],[1,2,0],
+   {hintParty:'jubin',hintText:'김주호: 연속 촬영된 파일은 장면이 이어지는 순서로 복구하면 돼요.'}),
+  ...originalPhotos
+ ];
  // Final reconstruction: entirely optional. Existing physical escape branches remain intact.
- const core=['dalsuKnown','readRecord','investorClue','incidentMemoRead','waterOrigin','recruitmentClue'];
- const names=['홀의 연혁 기록','병동 환자 기록','병동 외부 접촉 기록','절식기도실 봉헌함','배관실 샘물 기록','연구실 인력 기록'];
+ const core=['dalsuKnown','readRecord','investorClue','incidentMemoRead','waterOrigin','recruitmentClue','projectClue'];
+ const names=['홀의 연혁 기록','병동 환자 기록','병동 외부 접촉 기록','절식기도실 봉헌함','배관실 샘물 기록','연구실 인력 기록','봉인된 연구 계획서'];
  SCRIPTS.observationBeforeTruth=[
   T('출입문 옆에 잠긴 방이 있었다. 유리 너머로 누군가의 이름이 적힌 장비가 보였다.'),
   C('관찰실 옆에 기록 확인 장치가 있다.',[['수집한 증거를 대조한다','evidenceFinal'],['밖으로 나간다','falseEscape'],['물러난다','doorStay']])
  ];
  SCRIPTS.evidenceFinal=[
-  match('evidence-final','관찰실 · 기록 대조','지금까지 확보한 기록으로 다음 네 문장의 빈칸을 채운다.\n공동체의 표면과 실제 운영을 구분하고, 사람들을 가둔 목적을 추리하자.',
-   ['샘물의 실제 출처','환자 사망에 대한 내부 설명','차준영을 가둔 이유','이철민을 불러들인 이유'],
-   [['일반 납품 생수','신성한 지하수','치료용 약물'],['의학적 원인 확정','기도 부족으로 책임 전가','정상 퇴원'],['연구원 채용','자원봉사 신청','투자금 회수와 외부 발언'],['백신 연구 경력 활용','투자 손실 보복','신도 봉헌 의무']],
-   [0,1,2,0],{requiresFlags:core,requiresNames:names}),
+  match('evidence-final','관찰실 · 기록 대조','지금까지 확보한 기록으로 다음 다섯 문장의 빈칸을 채운다.\n공동체의 표면과 실제 운영을 구분하고, 사람들을 가둔 목적을 추리하자.',
+   ['샘물의 실제 출처','환자 사망에 대한 내부 설명','차준영을 가둔 이유','이철민을 불러들인 이유','연구의 실제 목적'],
+   [['일반 납품 생수','신성한 지하수','치료용 약물'],['의학적 원인 확정','기도 부족으로 책임 전가','정상 퇴원'],['연구원 채용','자원봉사 신청','투자금 회수와 외부 발언'],['백신 연구 경력 활용','투자 손실 보복','신도 봉헌 의무'],['통상적인 환자 치료','감각과 기억의 관찰을 통한 신인류 연구','생수 재고 정리']],
+   [0,1,2,0,1],{requiresFlags:core,requiresNames:names}),
   T('확보한 기록의 관리 번호를 대조하자 관찰실 문이 열렸다.'),
   J('truthReveal')
  ];
- ENDINGS.truth.hint='허달수와 조우한 뒤 여섯 핵심 기록을 확보하고 관찰실에서 대조하자.';
+ ENDINGS.truth.hint='허달수와 조우한 뒤 일곱 핵심 기록을 확보하고 관찰실에서 대조하자.';
  // Warn before the player crosses the irreversible final pursuit.
  const barrier=SCRIPTS.rewrite.findIndex(n=>n.puzzle);
  if(barrier>=0)SCRIPTS.rewrite[barrier].investigationWarning=true;

@@ -60,7 +60,8 @@
  addBeforeChoice('changwonOffer',scientistIntro);
  const reporterIntro=[
   T('오은지예요. 프리랜서 기자인데, 낙원의 샘 관련해서 찌라시 하나를 입수했어요.','오은지'),
-  T('확인해 보려고 왔는데 여기부터 기억이 좀 끊겨요. 얼마나 지났는지도 모르겠고.','오은지')
+  T('대문 안으로 몰래 들어간 것까진 기억나요. 카메라를 들고 있었는데…… 그다음부터 기억이 끊겨요.','오은지'),
+  T('머리는 계속 아프고, 팔에는 주사 자국이 잔뜩 나 있고. 얼마나 지났는지도 모르겠고요.','오은지')
  ];
  SCRIPTS.nasolWait=[
   T('벽에 기대 있던 여자가 관자놀이를 눌렀다.'),
@@ -140,6 +141,57 @@
   T('허달수의 이름 옆에는 볼펜으로 덧쓴 문장이 있었다.'),
   T('「우리에게 손해를 끼친 사람입니다. 함부로 입을 놀리고도 아무 일 없이 돌아가는 일이 없도록 하세요.」'),
   I('investorNote'),F('investorClue')
+ ];
+
+
+ // Reporter evidence: discarded camera, surviving memory card, independent treatment record.
+ MAPS.bath.objects.push(O('discardedCamera',25,18,'mark','폐기된 물품 더미',{hide:'cameraRecovered'}));
+ ITEMS.cameraCard=['오은지의 메모리 카드','폐기된 카메라에서 꺼낸 메모리 카드. 연구실의 컴퓨터에서 사진을 열어볼 수 있다.'];
+ ITEMS.cameraEvidence=['남아 있는 취재 사진','오은지의 카메라에 남은 사진. 나무에 묶인 신도와 그를 둘러싼 흰옷 차림의 사람들이 찍혀 있다.'];
+ SCRIPTS.discardedCamera=[
+  T('버려진 물품 사이에 카메라가 있었다. 렌즈가 깨져 있고 배터리도 빠져 있었다.'),
+  T('카메라 옆면에 오은지라는 이름이 적힌 스티커가 붙어 있었다.'),
+  T('메모리 카드 슬롯을 확인했다. 카드가 그대로 들어 있었다.'),
+  T('연구실에 컴퓨터가 있다면 사진을 확인할 수 있을 것 같다.'),
+  I('cameraCard'),F('cameraRecovered')
+ ];
+ const reader=O('cameraReader',19,6,'mark','연구실 컴퓨터의 카드 슬롯');
+ MAPS.research.objects.push(reader);
+ SCRIPTS.cameraReaderEmpty=[T('컴퓨터에 메모리 카드 리더가 연결돼 있다. 열어 볼 카드는 없다.')];
+ SCRIPTS.cameraPhotos=[
+  T('메모리 카드의 사진 폴더를 열었다. 일부 파일은 열리지 않았다.'),
+  T('첫 번째 사진에는 대문 안쪽 정원과 나무 한 그루가 찍혀 있었다.'),
+  T('다음 사진. 나무에 묶인 사람의 머리에는 헝겊이 씌워져 있었다. 흰옷을 입은 사람들이 그를 둘러싸고 있었다.'),
+  T('그 다음 사진에는 그중 한 명이 묶인 사람에게 손을 들어 올린 모습이 찍혀 있었다.'),
+  T('마지막 사진은 온통 흔들려 있었다. 플래시를 향해 고개를 돌린 신도의 얼굴이 찍혀 있었다.'),
+  I('cameraEvidence'),F('cameraPhotoSeen'),Q('nasolJoined','reporterPhotoReaction','cameraPhotoEnd')
+ ];
+ SCRIPTS.cameraPhotoEnd=[T('이 사진을 오은지에게 보여 줘야겠다.')];
+ SCRIPTS.cameraPhotosAgain=[
+  T('카드에는 외부의 정원, 나무에 묶인 사람, 그 주변의 신도들이 찍힌 사진이 남아 있다.'),
+  Q('nasolJoined','reporterPhotoReactionCheck','cameraPhotoEnd')
+ ];
+ SCRIPTS.reporterPhotoReactionCheck=[Q('reporterPhotoDiscussed','reporterPhotoKnown','reporterPhotoReaction')];
+ SCRIPTS.reporterPhotoKnown=[T('이 사진은 꼭 밖으로 가져가야 해요.','오은지')];
+ SCRIPTS.reporterPhotoReaction=[
+  T('오은지가 화면을 한참 내려다봤다.'),
+  T('……사탄아 물러가라. 저 사람들이 그렇게 소리쳤어요.','오은지'),
+  T('묶인 사람이 허달수한테 더는 속지 않겠다고 했던 것 같아요. 그러니까 저렇게……','오은지'),
+  T('찍던 중에 플래시가 터졌어요. 사람들이 저를 보고 달려왔고, 머리를 맞은 것까지는 기억나요.','오은지'),
+  T('그 뒤로는 군데군데밖에 기억이 안 나요. 여기서 주사를 맞았던 것 같긴 한데.','오은지'),
+  T('이거 지우지 마세요. 제가 찍은 거예요.','오은지'),
+  F('reporterPhotoDiscussed')
+ ];
+ SCRIPTS.nasolJoin.push(Q('cameraPhotoSeen','reporterPhotoReaction','reporterJoinEnd'));
+ SCRIPTS.reporterJoinEnd=[T('카메라가 어디 있는지 알게 되면 알려 주세요.','오은지')];
+ MAPS.ward.objects.push(O('reporterTreatment',18,11,'book','응급 처치 및 투약 기록'));
+ ITEMS.reporterTreatment=['응급 처치 및 투약 기록','오은지의 입소 당시 두부 외상 및 반복된 약물 투여, 이후 기억 장애 증상이 기록되어 있다.'];
+ SCRIPTS.reporterTreatment=[
+  T('기록에 오은지의 이름이 있었다.'),
+  T('「입소 시 두부 외상 확인. 의식 소실. 입소 후 약물 반복 투여.」'),
+  T('「각성 후 시간 및 장소에 대한 혼동, 입소 전후의 기억 일부 소실 확인.」'),
+  T('어떤 이유에서 약을 그렇게 투여했는지 설명은 없었다.'),
+  I('reporterTreatment'),F('reporterTreatmentRead')
  ];
 
  SCRIPTS.intro=SCRIPTS.intro.filter(n=>n.who!=='개발 안내');

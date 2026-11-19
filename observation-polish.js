@@ -12,6 +12,9 @@
   ['labConsole',15,11],['labRack',4,11],['labChair',11,12],
   ['labWarning',3,4]
  ];
+ // The legacy observation-room scenery was generated from a different map layout.
+ // Clear those stale clickable positions; this room is an ending cutscene.
+ SCENERY.lab=[];
  // These are atmospheric observations, not instantly given quest items.
  const notes=[
   ['annexScenery_casePulseChart',21,8,'뒤집힌 관찰표',[

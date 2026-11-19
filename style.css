@@ -20,3 +20,96 @@
 
 /* Revised ending credits */
 .creditsPanel{background:#151311!important;color:#dfd4c3;border-color:#59483c!important}.creditsEyebrow{font-size:11px;letter-spacing:3px;color:#a69b88;margin:28px 0}.creditsGame{font-size:30px;color:#e4dac8;letter-spacing:1px}.creditsRole{color:#ae9982;font-size:12px;letter-spacing:2px;margin:48px 0 12px}.creditsDetail{font-size:15px;color:#c8bdab;margin:8px 0}.creditsWriter{font-size:20px;color:#f1e4d0;margin:12px 0 28px}.creditsName{font-size:14px;color:#b7ac99;margin:10px 0}.creditsThanks{font-size:15px;color:#b7ac99}.creditsRoll{animation-duration:32s}
+
+
+/* Detective chapter: evidence folder laid out as readable, grime-worn paperwork. */
+#choices .caseDesk{
+ width:100%;max-width:100%;min-width:0;padding:13px 13px 16px;
+ background:repeating-linear-gradient(0deg,#343640 0,#343640 9px,#30323a 10px,#30323a 11px);
+ border:3px solid #7b7976;box-shadow:inset 0 0 0 2px #22252c,0 7px 0 #14141c,0 13px 25px #08080d99;
+ color:#d9d3c4;display:block;
+}
+#choices .caseDeskHead{
+ display:flex;justify-content:space-between;align-items:center;gap:9px;flex-wrap:wrap;
+ padding:6px 5px 12px;font-size:10px;letter-spacing:1px;text-transform:uppercase;
+ color:#bfbdaf;
+}
+#choices .caseFolderCode{font-weight:800;color:#dbc396;letter-spacing:1.5px}
+#choices .caseFolderStatus{color:#aaa89a}
+#choices .casePaper{
+ position:relative;margin:6px 3px 0;padding:22px 22px 18px;
+ background:repeating-linear-gradient(0deg,#d2c8ab 0px,#d2c8ab 29px,#b7b097 30px,#d2c8ab 31px);
+ border:2px solid #897d6e;box-shadow:3px 4px 0 #22232c,7px 8px 12px #08080e6b;
+ color:#292a31;font-family:system-ui,sans-serif;min-width:0;
+}
+#choices .casePaper:after{
+ content:'';position:absolute;right:9px;top:11px;width:16px;height:16px;
+ border-right:2px solid #a59c84;border-top:2px solid #a59c84;opacity:.7;
+}
+#choices .casePaperTape{position:absolute;top:-12px;left:38%;width:86px;height:18px;
+ background:repeating-linear-gradient(90deg,#d0bc8ab8 0,#d0bc8ab8 10px,#bda879a8 11px);
+ border:1px solid #a49575a1;transform:rotate(-2deg)}
+#choices .casePaperTitle{
+ margin:0 20px 12px 0;font-size:18px;font-weight:800;letter-spacing:.3px;
+ color:#303037;line-height:1.4;
+}
+#choices .casePaperInstructions{
+ white-space:pre-line;padding:12px 14px;margin:0 0 15px;font-size:13px;
+ line-height:1.7;overflow-wrap:anywhere;color:#35363d;
+ background:#e5dec9b8;border-left:3px solid #867963;box-shadow:inset 0 0 0 1px #c3b99e;
+}
+#choices .caseWork{padding-top:5px}
+#choices .caseSection{font-family:ui-monospace,monospace;font-weight:800;font-size:10px;
+ letter-spacing:1.2px;margin:3px 0 10px;color:#66574a}
+#choices .caseOrder{display:grid;gap:7px;margin-bottom:13px}
+#choices .caseOrderSlot{display:grid;grid-template-columns:28px 1fr;gap:8px;align-items:center;
+ border:1px dashed #9a9381;background:#efe9d991;padding:7px 9px;min-height:38px;font-size:12px;color:#787267}
+#choices .caseOrderSlot small{font:700 11px ui-monospace,monospace;color:#a49a80}
+#choices .caseOrderSlot.filled{border-style:solid;border-color:#968474;color:#2f3438;background:#f1e6d1}
+#choices .caseSlipTray{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+#choices .caseSlip{
+ width:100%;min-width:0;min-height:58px!important;background:#f0e7d2!important;
+ padding:10px 11px!important;border:2px solid #938976!important;box-shadow:2px 3px 0 #5f6060;
+ color:#333c41!important;font-family:system-ui,sans-serif;font-size:12px!important;line-height:1.45;
+ white-space:normal;overflow-wrap:anywhere;transform:rotate(-.3deg);
+}
+#choices .caseSlip:nth-child(2){transform:rotate(.4deg)}
+#choices .caseSlip:nth-child(3){transform:rotate(-.5deg)}
+#choices .caseSlip.filed{border-color:#727f77!important;background:#ccd4c8!important;color:#48584e!important;opacity:.67}
+#choices .caseField{margin:0 0 9px;padding:9px 11px 12px;border:1px solid #ae9f86;background:#ece3ccbb}
+#choices .caseFieldLabel{display:flex;align-items:baseline;gap:10px;font-size:13px;font-weight:750;
+ color:#39383b;line-height:1.4;margin-bottom:8px}
+#choices .caseFieldIndex{font:700 11px ui-monospace,monospace;color:#93715f}
+#choices .caseFieldOptions{display:flex;flex-wrap:wrap;gap:6px}
+#choices .caseAnswer{
+ background:#e0d8c2!important;color:#3c4041!important;border:1px solid #a89c87!important;
+ min-height:38px;padding:8px 10px!important;white-space:normal;overflow-wrap:anywhere;
+ font:12px/1.45 system-ui,sans-serif!important;text-align:left;flex:1 1 125px;
+}
+#choices .caseAnswer.chosen{
+ background:#596a64!important;color:#f1efe1!important;border-color:#354843!important;
+ box-shadow:inset 0 0 0 1px #849588;opacity:1;
+}
+#choices .caseWrong,#choices .caseWarning{
+ margin:12px 0;padding:10px 12px;background:#e3cfc2;
+ border:2px solid #925a52;color:#772f31;font-size:12px;white-space:pre-line;line-height:1.6;
+}
+#choices .caseCompanionNote{margin:12px 0;padding:10px 13px;font-size:12px;line-height:1.6;
+ background:#d6d6c1;color:#455355;border-left:3px solid #657a77}
+#choices .caseActions{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:7px;margin-top:16px}
+#choices .caseActions button{background:#e1d5bb;color:#37383e;border:2px solid #8d806c;
+ font-size:12px;padding:9px 12px;line-height:1.35;flex:1 1 130px;text-align:center}
+#choices .caseActions .caseConfirm{background:#53665f;color:#f5f0da;border-color:#303f3b;font-weight:700}
+#choices .caseActions .caseLeave{background:#d7c4ac}
+#choices .caseActions button:disabled{opacity:.48}
+@media(max-width:690px){
+ #choices .caseDesk{padding:8px 6px 12px}
+ #choices .casePaper{padding:18px 10px 12px;margin:4px 2px 0}
+ #choices .casePaperTitle{font-size:16px}
+ #choices .casePaperInstructions{font-size:12px;padding:10px 9px}
+ #choices .caseSlipTray{grid-template-columns:1fr}
+ #choices .caseSlip{min-height:45px!important}
+ #choices .caseField{padding:8px}
+ #choices .caseAnswer{flex-basis:100%;min-height:35px}
+ #choices .caseActions button{flex-basis:calc(50% - 7px);font-size:11px;padding:9px 6px}
+}

@@ -113,25 +113,79 @@
 })();
 function renderEvidencePuzzle(n,raw){
  const root=$('#choices');
+ root.replaceChildren();
+ // Field folder and clipped papers: one shared visual grammar for every investigation puzzle.
+ const desk=document.createElement('section');desk.className='caseDesk';root.append(desk);
+ const header=document.createElement('div');header.className='caseDeskHead';desk.append(header);
+ const code=document.createElement('span');code.className='caseFolderCode';
+ code.textContent=n.puzzleId?.toUpperCase().replaceAll('-',' / ')||'CASE FILE';header.append(code);
+ const status=document.createElement('span');status.className='caseFolderStatus';
+ status.textContent='낙원의 샘 · 기록 대조';header.append(status);
+ const paper=document.createElement('div');paper.className='casePaper';desk.append(paper);
+ const tape=document.createElement('div');tape.className='casePaperTape';paper.append(tape);
+ const title=document.createElement('h3');title.className='casePaperTitle';title.textContent=n.title;paper.append(title);
+ const help=document.createElement('p');help.className='casePaperInstructions';help.textContent=n.help;paper.append(help);
+ $('#words').textContent='서류의 내용을 확인하고 빈칸을 채우자.';
  const missing=(n.requiresFlags||[]).map((f,i)=>s.flags[f]?null:n.requiresNames[i]).filter(Boolean);
- if(missing.length){paragraph(root,'대조할 기록이 부족하다.\n미확보: '+missing.join(' / '),'warning');button(root,'물러나기',leavePuzzle);updateUI();return;}
- if(raw.evidenceId!==n.puzzleId){raw.evidenceId=n.puzzleId;raw.selected=n.mode==='sequence'?[]:n.labels.map(()=>null);raw.tries=0;}
+ if(missing.length){
+  const warn=document.createElement('div');warn.className='caseWarning';warn.textContent='미확보 기록\n'+missing.join('\n');paper.append(warn);
+  const actions=document.createElement('div');actions.className='caseActions';paper.append(actions);
+  button(actions,'돌아가기',leavePuzzle);
+  updateUI();return;
+ }
+ if(raw.evidenceId!==n.puzzleId){
+  raw.evidenceId=n.puzzleId;
+  raw.selected=n.mode==='sequence'?[]:n.labels.map(()=>null);
+  raw.tries=0;
+ }
  const selected=raw.selected;
- const render=()=>renderPuzzle(n);
- const choose=(i,j)=>{selected[i]=j;autoSave();render();};
+ const work=document.createElement('div');work.className='caseWork';paper.append(work);
+ const render=()=>{autoSave();renderPuzzle(n)};
  if(n.mode==='sequence'){
-  paragraph(root,'선택 순서: '+(selected.length?selected.map(i=>n.options[i]).join(' → '):'아직 선택하지 않았다.'),'small');
-  n.options.forEach((label,i)=>{const b=button(root,(selected.includes(i)?(selected.indexOf(i)+1)+'. ':'')+label,()=>{if(selected.includes(i))return;selected.push(i);autoSave();render()});b.disabled=selected.includes(i);});
-  button(root,'순서 초기화',()=>{selected.length=0;autoSave();render();});
+  const section=document.createElement('p');section.className='caseSection';section.textContent='01 / 기사·기록 배열';work.append(section);
+  const order=document.createElement('div');order.className='caseOrder';work.append(order);
+  for(let i=0;i<n.options.length;i++){
+   const line=document.createElement('div');line.className='caseOrderSlot'+(i<selected.length?' filled':'');
+   const num=document.createElement('small');num.textContent=String(i+1).padStart(2,'0');line.append(num);
+   const value=document.createElement('span');value.textContent=i<selected.length?n.options[selected[i]]:'문서 선택 대기';line.append(value);order.append(line);
+  }
+  const choices=document.createElement('div');choices.className='caseSlipTray';work.append(choices);
+  n.options.forEach((label,i)=>{
+   const rank=selected.indexOf(i),b=button(choices,(rank>=0?String(rank+1).padStart(2,'0')+' ✓  ':'')+label,()=>{
+    if(selected.includes(i))return;selected.push(i);render();
+   },'caseSlip'+(rank>=0?' filed':''));
+   b.disabled=rank>=0;
+  });
  }else{
-  n.labels.forEach((label,i)=>{const line=document.createElement('div');line.style.cssText='width:100%;padding:8px 0;border-bottom:1px solid #504453';root.append(line);
-   paragraph(line,label,'small');
-   n.options[i].forEach((option,j)=>{const b=button(line,(selected[i]===j?'● ':'○ ')+option,()=>choose(i,j));b.setAttribute('aria-pressed',String(selected[i]===j));if(selected[i]===j)b.classList.add('primary');});
+  const section=document.createElement('p');section.className='caseSection';section.textContent='02 / 기록 분류 · 항목 대조';work.append(section);
+  n.labels.forEach((label,i)=>{
+   const field=document.createElement('div');field.className='caseField';work.append(field);
+   const labelNode=document.createElement('div');labelNode.className='caseFieldLabel';field.append(labelNode);
+   const index=document.createElement('span');index.className='caseFieldIndex';index.textContent=String(i+1).padStart(2,'0');labelNode.append(index);
+   const name=document.createElement('span');name.textContent=label;labelNode.append(name);
+   const options=document.createElement('div');options.className='caseFieldOptions';field.append(options);
+   n.options[i].forEach((opt,j)=>{
+    const active=selected[i]===j;
+    const b=button(options,(active?'■ ':'□ ')+opt,()=>{selected[i]=j;render()},'caseAnswer'+(active?' chosen':''));
+    b.setAttribute('aria-pressed',String(active));
+   });
   });
  }
- if(n.hintParty&&s.party.includes(n.hintParty))paragraph(root,n.hintText,'small');
- if(raw.tries)paragraph(root,'기록이 서로 맞지 않는다. 다시 비교해 보자.','warning');
- const submit=button(root,'기록 대조',()=>{if(n.answer.every((v,i)=>selected[i]===v)&&selected.length===n.answer.length){completePuzzle()}else{raw.tries++;sound(110,.12);autoSave();render()}},'primary');
- submit.disabled=selected.length!==n.answer.length||selected.some(x=>x===null);
- button(root,'물러나기',leavePuzzle);updateUI();
+ if(n.hintParty&&s.party.includes(n.hintParty)){
+  const hint=document.createElement('p');hint.className='caseCompanionNote';hint.textContent=n.hintText;paper.append(hint);
+ }
+ if(raw.tries){
+  const warn=document.createElement('p');warn.className='caseWrong';warn.textContent='문서 내용이 일치하지 않는다. 다시 대조해 보자.';paper.append(warn);
+ }
+ const actions=document.createElement('div');actions.className='caseActions';paper.append(actions);
+ const allSelected=selected.length===n.answer.length&&selected.every(x=>x!==null);
+ const submit=button(actions,'대조 완료 / 기록 봉인',()=>{
+  if(!allSelected)return;
+  if(n.answer.every((v,i)=>selected[i]===v)){completePuzzle()}
+  else{raw.tries++;sound(110,.12);render();}
+ },'caseConfirm');
+ submit.disabled=!allSelected;
+ if(n.mode==='sequence')button(actions,'다시 배열',()=>{selected.length=0;render()},'caseReset');
+ button(actions,'조사 중단',leavePuzzle,'caseLeave');
+ updateUI();
 }

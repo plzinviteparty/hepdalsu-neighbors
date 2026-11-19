@@ -19,6 +19,21 @@
   O('accidentLedger',25,13,'book','차량·이송 기록함'),
   O('annexDoor',28,17,'door','별관 05번 관찰병실')
  );
+ // The offering record must be obtained before the irreversible fasting-room trial.
+ // This also prevents players from losing a mandatory case clue during the pursuit.
+ const originalAltarTrial=SCRIPTS.altarTrial;
+ SCRIPTS.altarTrialProceed=originalAltarTrial;
+ SCRIPTS.altarNeedOffering=[
+  T('신도들의 말소리가 뒤엉켰다. 옆의 봉헌함을 가리키는 손가락이 보였다.'),
+  T('기도, 배려, 양보. 먼저 봉헌 의식을 마쳐야 대답을 들을 수 있을 것 같다.')
+ ];
+ SCRIPTS.altarTrial=[Q('incidentMemoRead','altarTrialProceed','altarNeedOffering')];
+ for(let i=0;i<5;i++){
+  const id='altarHead'+i,proceed=id+'Proceed';
+  SCRIPTS[proceed]=SCRIPTS[id];
+  SCRIPTS[id]=[Q('incidentMemoRead',proceed,'altarNeedOffering')];
+ }
+ MAPS.altar.mission='봉헌함을 살펴보고, 신도들의 참말과 거짓말을 비교하자';
  // The patient lives in a visitable ward, rather than being an ending-only caption.
  MAPS.annex05={
   name:'별관 05번 관찰병실',theme:'ward',w:28,h:20,

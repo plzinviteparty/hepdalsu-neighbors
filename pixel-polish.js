@@ -14,6 +14,10 @@
     ['caseDivider',22,13]
   );
   m.mission='05번 병실을 조사하고 이관 기록과 환자의 진술을 확인하자';
+  // Three key quest objects use physical furniture instead of floating book icons.
+  MAPS.wreck.objects.find(o=>o.id==='detectiveLocker').kind='caseLocker';
+  MAPS.wreck.objects.find(o=>o.id==='accidentLedger').kind='caseLedger';
+  MAPS.annex05.objects.find(o=>o.id==='patientIndex').kind='caseIndex';
   const labels=[
     ['caseCabinet',24,10,'잠긴 약품장','낡은 약품장이다. 약병에는 관리번호만 남아 있다.'],
     ['caseCart',10,9,'이동식 처치대','바퀴에 녹이 슨 처치대다. 소독솜 봉투는 비어 있다.'],
@@ -104,6 +108,30 @@ function drawAnnexProp(kind,x,y){
   cx.save();cx.translate(Math.round(x/2)*2,Math.round(y/2)*2);cx.scale(2,2);
   const dark='#29343f',metal='#71878b',edge='#9caeaa',light='#c6c7b8',rust='#8d746d';
   switch(kind){
+    case 'caseLocker':
+      p(-20,-70,40,70,dark);p(-17,-67,34,64,'#6a787d');
+      p(-15,-65,30,60,'#4b6069');
+      p(-14,-65,2,58,edge);p(0,-65,2,59,dark);
+      p(-11,-57,7,2,'#84918e');p(5,-57,7,2,'#84918e');
+      p(-5,-37,3,8,'#c1bcab');p(4,-37,3,8,'#c1bcab');
+      p(-13,-19,11,8,'#c6bfaa');p(-11,-17,7,2,'#887d6e');
+      p(3,-19,10,8,'#a18f86');p(5,-17,6,2,'#695d59');
+      p(-22,-3,44,5,'#2e3d45');break;
+    case 'caseLedger':
+      p(-19,-36,38,34,dark);p(-16,-32,32,26,'#677b7c');
+      p(-15,-31,30,4,'#b1a995');
+      p(-18,-39,36,8,'#8f8d7a');
+      p(-13,-45,27,7,'#c5b99d');p(-8,-47,17,3,'#ded3b4');
+      for(let i=0;i<4;i++)p(-9,-42+i*3,18-i*2,1,'#85766c');
+      p(11,-17,3,7,edge);p(-20,-2,40,4,'#354851');break;
+    case 'caseIndex':
+      p(-17,-42,34,42,dark);p(-15,-39,30,37,'#667a7e');
+      for(let i=0;i<3;i++){
+       p(-13,-36+i*11,26,10,'#455861');
+       p(-11,-35+i*11,22,3,'#899c9c');
+       p(-5,-31+i*11,10,2,'#cec2a9');
+      }
+      p(-18,-3,36,4,'#303e49');break;
     case 'caseCabinet':
       p(-17,-46,34,45,dark);p(-15,-44,30,41,metal);
       p(-13,-42,26,36,'#485d66');p(-12,-40,24,2,edge);

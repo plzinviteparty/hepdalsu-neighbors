@@ -60,6 +60,31 @@
  // Keep the original ending branches and plot beats unchanged.
 })();
 
+function drawObservationTile(x,y){
+ if(s.room!=='lab')return false;
+ const px=x*TS-camera.x,py=y*TS-camera.y,m=MAPS.lab;
+ const p=(a,b,w,h,color)=>{cx.fillStyle=color;cx.fillRect(Math.round(a),Math.round(b),w,h)};
+ const wall=y<3||x===0||x===m.w-1||y===m.h-1;
+ if(wall){
+  p(px,py,32,32,'#192732');
+  p(px+2,py+2,28,28,'#2d3d48');
+  p(px+4,py+4,24,24,'#243640');
+  p(px+6,py+5,2,22,'#465763');
+  p(px+25,py+4,2,23,'#182b37');
+  p(px,py+28,32,4,'#111f2b');
+  if(y<3){p(px+5,py+14,20,2,'#415865');p(px+8,py+16,15,2,'#1a2934')}
+  if((x+y)%3===0)p(px+14,py+8,5,3,'#4d616a');
+  return true;
+ }
+ p(px,py,32,32,(x+y)%2?'#293945':'#30414c');
+ p(px,py,32,2,'#60727a');
+ p(px,py,2,32,'#52626c');
+ p(px+4,py+4,24,24,'#25374448');
+ p(px+26,py+4,2,23,'#1b2b3658');
+ if((x*7+y*11)%5===0){p(px+6,py+20,6,2,'#a4afa91a');p(px+17,py+11,4,2,'#101f2b45')}
+ if(y===3){p(px,py,32,4,'#687f86');p(px+3,py+4,26,2,'#a3a79a')}
+ return true;
+}
 function drawObservationProp(kind,x,y,frame=0){
  if(!kind.startsWith('lab')&&!['casePulseChart','caseBedRail','caseDiary','caseDoorView'].includes(kind))return false;
  const p=(xx,yy,w,h,color)=>{cx.fillStyle=color;cx.fillRect(Math.round(xx),Math.round(yy),w,h)};

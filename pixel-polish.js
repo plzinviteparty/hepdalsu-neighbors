@@ -100,17 +100,16 @@ function drawPatient05Pixel(x,y,face='down'){
 function drawAnnexProp(kind,x,y){
   if(!kind.startsWith('case'))return false;
   const p=(xx,yy,w,h,color)=>{cx.fillStyle=color;cx.fillRect(Math.round(xx),Math.round(yy),w,h)};
+  if(!['caseNotice','caseCeilingLight'].includes(kind))shadow(x,y,26);
   cx.save();cx.translate(Math.round(x/2)*2,Math.round(y/2)*2);cx.scale(2,2);
   const dark='#29343f',metal='#71878b',edge='#9caeaa',light='#c6c7b8',rust='#8d746d';
   switch(kind){
     case 'caseCabinet':
-      shadow(x,y,45);
       p(-17,-46,34,45,dark);p(-15,-44,30,41,metal);
       p(-13,-42,26,36,'#485d66');p(-12,-40,24,2,edge);
       for(let i=0;i<3;i++){p(-11,-36+i*10,22,2,metal);p(-8,-34+i*10,4,6,'#b1aa9a');p(-3,-34+i*10,5,5,'#7d9b9b');p(5,-33+i*10,4,5,'#aa8e79')}
       p(11,-28,2,8,light);p(-17,-4,34,4,'#394a53');break;
     case 'caseCart':
-      shadow(x,y,37);
       p(-15,-37,30,4,edge);p(-14,-33,28,6,metal);
       p(-14,-27,4,27,dark);p(10,-27,4,27,dark);
       p(-12,-20,24,3,metal);p(-12,-6,24,3,metal);
@@ -124,7 +123,6 @@ function drawAnnexProp(kind,x,y){
       p(-34,-13,68,3,'#74878a');p(-19,-34,13,2,'#879493');
       p(14,-46,11,3,'#606c72');break;
     case 'caseIV':
-      shadow(x,y,15);
       p(-2,-68,4,66,metal);p(-13,-68,26,3,edge);
       p(-12,-69,3,9,edge);p(9,-69,3,9,edge);
       p(5,-61,7,17,'#a8bbba');p(6,-60,5,13,'#d4d5cb');
@@ -135,7 +133,7 @@ function drawAnnexProp(kind,x,y){
       for(let i=0;i<5;i++){p(-22,-50+i*5,42-(i%3)*8,2,'#847e76')}
       p(-27,-66,10,4,'#9e9c8b');p(19,-25,9,3,'#b19a89');break;
     case 'caseWaste':
-      shadow(x,y,22);p(-11,-31,22,31,dark);p(-10,-28,20,27,'#64757a');
+p(-11,-31,22,31,dark);p(-10,-28,20,27,'#64757a');
       p(-13,-33,26,6,edge);p(-7,-23,14,12,'#b09d83');p(-4,-21,8,8,'#746a66');
       p(-8,-4,16,2,'#36454a');break;
     case 'caseCeilingLight':

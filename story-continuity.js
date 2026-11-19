@@ -159,6 +159,13 @@
  ];
  SCRIPTS.clock=[T('벽시계의 바늘이 멈춰 있었다. 초침의 위치와 먼지 자국이 맞지 않았다.'),T('누군가 시간을 다시 맞추려 한 것처럼 보였다.')];
 
+ // A patrol guard catching the player is a failed escape, not a fantastical
+ // transformation carried over from the retired mini-game.
+ ENDINGS.tofu={
+  type:'BAD END 03',title:'비상문 앞에서',
+  text:'비상문에 손이 닿기 직전, 뒤에서 누군가 내 팔을 붙잡았다.\\n\\n직원들이 무전기로 누군가에게 보고했다. 잠시 뒤 병동으로 통하는 문이 다시 열렸다.\\n\\n이번에는 돌아갈 길이 없었다.',
+  hint:'지하 연결 통로에서는 시설 직원보다 먼저 비상문에 도착해야 한다.'
+ };
  // The final case board should feel earned, even without optional discoveries.
  const finale=SCRIPTS.evidenceFinal;
  if(finale){

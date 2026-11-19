@@ -46,8 +46,28 @@
  refuge.props=[
   ['desk',7,6],['table',14,7],['monitor',23,5],['chair',13,13],
   ['pipe',4,10],['caseCabinet',29,10],['caseCart',22,18],
-  ['plant',5,4],['caseCeilingLight',17,3],['chair',15,17]
+  ['pipe',5,4],['caseCeilingLight',17,3],['chair',15,17],['caseWaste',5,16]
  ];
+ // Scenery interactions are regenerated because the old click targets still
+ // pointed at removed props (including the former fantasy-game assets).
+ const refugeNote={
+  desk:['작업대','작업대 위에는 부서별 보관 표가 놓여 있다. 수거품 기록은 별도 보관함에서 확인해야 한다.'],
+  table:['작업 탁자','탁자 한쪽에 비닐장갑과 비어 있는 봉투가 널려 있다.'],
+  monitor:['감시 모니터','화면에는 지하 복도와 출입문이 번갈아 나타난다. 시간 표시는 몇 분씩 밀려 있다.'],
+  chair:['접이식 의자','급히 일어난 듯한 의자다. 좌석 아래에는 별다른 물건이 없다.'],
+  pipe:['노출 배관','배관을 따라 결로가 맺혀 있다. 오래된 페인트가 조각조각 떨어졌다.'],
+  caseCabinet:['보관 캐비닛','녹이 슨 캐비닛. 접수번호가 적힌 빈 봉투만 꽂혀 있다.'],
+  caseCart:['이동식 카트','카트 바퀴에 흙과 먼지가 굳어 있다.'],
+  caseWaste:['폐기물통','찢어진 고무장갑과 종이 포장재가 담겨 있다.']
+ };
+ SCENERY.wreck=[];
+ for(let i=0;i<refuge.props.length;i++){
+  const [kind,x,y]=refuge.props[i],v=refugeNote[kind];
+  if(!v)continue;
+  const id='refugeDetail_'+i;
+  SCENERY.wreck.push({id,x,y,kind,label:v[0],scenery:true,rx:kind==='table'?1:0,ry:0});
+  SCRIPTS[id]=[T(v[1])];
+ }
  const fileTable=refuge.objects.find(o=>o.id==='family');
  if(fileTable){fileTable.kind='book';fileTable.label='폐쇄 구역 출입 기록';}
  const exitHall=refuge.objects.find(o=>o.id==='wake');

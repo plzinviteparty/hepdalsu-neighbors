@@ -40,9 +40,9 @@
   annexScenery_caseDiary:[9,13,'caseDiary'],
   annexScenery_caseDoorView:[5,12,'caseDoorView']
  };
- for(const [id,x,ylabel,scenes] of notes){
+ for(const [id,_px,_py,label,scenes] of notes){
   const [px,py,kind]=locations[id];
-  SCENERY.annex05.push({id,x:px,y:py,kind,label:ylabel,scenery:true,rx:kind==='caseBedRail'?1:0,ry:0});
+  SCENERY.annex05.push({id,x:px,y:py,kind,label,scenery:true,rx:kind==='caseBedRail'?1:0,ry:0});
   SCRIPTS[id]=scenes;
  }
  MAPS.annex05.props.push(

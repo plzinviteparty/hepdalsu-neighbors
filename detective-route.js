@@ -25,7 +25,7 @@
   mission:'병상에 있는 사람과 이관 기록을 확인하자',
   objects:[
    O('annexReturn',4,16,'door','비상 대피실로 돌아가는 문'),
-   O('patient05',17,12,'nasol','병상 옆에 앉은 여자',{hide:'patient05Rescued'}),
+   O('patient05',17,12,'patient05','병상 옆에 앉은 여자',{hide:'patient05Rescued'}),
    O('patientIndex',7,11,'book','잠긴 환자 이관 기록함')
   ],
   props:[['bed',17,9],['desk',7,7],['monitor',23,6],['chair',10,14],['plant',24,15]]

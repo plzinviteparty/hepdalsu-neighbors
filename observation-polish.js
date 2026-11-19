@@ -127,7 +127,7 @@ function drawObservationProp(kind,x,y,frame=0){
    p(-w/2-3,-h-18,w+6,2,pale);
    if(core){
     // Neural tissue is intentionally withheld until the capture reveal.
-    if(s.room==='lab'&&s.script==='detectiveCaught'&&s.step>=6){
+    if(s.room==='lab'&&s.script==='detectiveCaught'&&s.step>=8){
      const pulse=Math.sin(frame*1.6)>0?'#ae7480':'#997080';
      p(-9,-h+20,18,17,pulse);p(-11,-h+25,22,7,'#bc8d95');
      p(-5,-h+15,11,9,'#bc8793');p(-8,-h+19,4,12,'#9d6976');
@@ -258,12 +258,7 @@ function drawCaseInspectionOverlay(){
   const glint=cx.createRadialGradient(x,y,5,x,y,78);
   glint.addColorStop(0,'#d2c1b514');glint.addColorStop(.55,'#b5a3a30e');glint.addColorStop(1,'#5e677100');
   cx.fillStyle=glint;cx.fillRect(x-95,y-95,190,190);
-  if(s.step>=8){
-   rect(415,35,186,38,'#1c2e37ea');
-   cx.font='12px monospace';cx.textAlign='left';cx.fillStyle='#c6c7b6';
-   cx.fillText('SUBJECT RECORD',427,50);
-   cx.font='10px monospace';cx.fillText('STATUS: OBSERVING',427,65);
-  }
+  // Finale layer presents the observation status only at the right story beat.
   cx.restore();
  }
 }

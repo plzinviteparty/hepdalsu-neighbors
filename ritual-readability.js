@@ -140,7 +140,15 @@ function drawRitualReadability(kind,x,y){
   case 'altarTable':{
    // Keep the game's mature original desk PNG, which already has carved wood
    // details, rather than using the dinner-table graphic with food plates.
-   if(drawRasterProp('desk',x,y)){
+   const deskReady=drawRasterProp('desk',0,0);
+   if(!deskReady){
+    p(-42,-44,84,36,c.ink);p(-40,-42,80,14,c.woodLight);
+    p(-38,-27,76,4,c.brass);p(-35,-24,15,27,c.wood);
+    p(20,-24,15,27,c.wood);p(-22,-21,44,17,c.dark);
+    p(-19,-18,38,2,c.woodLight);
+    grains(-38,-42,76,23,7,38,c.bone);
+   }
+   {
     // drawRasterProp receives world coordinates, so undo local translate.
     // The paper atop the table is then drawn at the same pixel scale.
     p(-31,-59,62,27,'#26222a');

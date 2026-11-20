@@ -179,7 +179,7 @@ function openPartyBanterMenu(){
   button(topics,entry.title+'\n'+people,()=>{
    closeModal();
    run('partyBanter_'+entry.id);
-  });
+  },'banterTopic');
  }
  const nav=row(panel);
  button(nav,'동료 선택으로',openCompanionTalkMenu);

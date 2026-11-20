@@ -87,8 +87,8 @@ function renderCompanionInvestigation(n,raw,paper){
    ['changwon','이철민','치료 경과를 찾고 있었는데, 이 계획에는 그 항목이 없어요.']],
   incidentMemoDeduce:[
    ['nasol','오은지','누구에게 무슨 말을 할지도 미리 써 놨네요. 피해자 가족은 사실을 듣지 못했을 거예요.']],
-  cameraPhotos:[
-   ['nasol','오은지','이 사진은 제가 찍은 게 맞아요. 흔들린 마지막 장면을 보니 왜 카메라를 놓쳤는지 조금 알 것 같아요.']],
+  reporterPhotoReaction:[
+   ['nasol','오은지','흔들린 마지막 장면을 보니 왜 카메라를 놓쳤는지 조금 알 것 같아요. 그래도 원본은 꼭 남겨 주세요.']],
   detectiveLockerFirst:[
    ['kim','차준영','수첩과 명함을 꼭 챙기세요. 본인이 무슨 일을 하러 왔는지 증명할 자료입니다.']],
   patientIndexFirst:[

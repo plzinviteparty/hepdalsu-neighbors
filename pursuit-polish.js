@@ -145,6 +145,24 @@ function drawFacilityGuard(x,y,face='right'){
  r(7,-19,6,4,'#2b3031');r(11,-19,3,3,'#c6b59a');
  cx.restore();
 }
+// A restrained pixel dither shows the patrol's line of sight, not a glowing cone.
+function drawLoopWatchVision(){
+ if(s.room!=='loop'||!s.flags.dalsuEncounter||s.script)return;
+ const w=ensureLoopWatch(),dir=DIRS[w.face]||DIRS.left;
+ for(let y=Math.max(3,Math.floor(w.y-6));y<=Math.min(14,Math.ceil(w.y+6));y++){
+  for(let x=Math.max(1,Math.floor(w.x-6));x<=Math.min(30,Math.ceil(w.x+6));x++){
+   const dx=x-w.x,dy=y-w.y,d=Math.hypot(dx,dy);
+   if(d<1||d>5.8||(dx*dir[0]+dy*dir[1])/d<.49)continue;
+   if(!validLoopWatchStep(x,y)||!loopWatchLineClear(w.x,w.y,x,y))continue;
+   const px=x*TS-camera.x,py=y*TS-camera.y;
+   const tone=w.mode==='chase'?'#bd655144':w.mode==='alert'?'#c6a37636':'#c7ba8d22';
+   for(let i=0;i<3;i++){
+    const ax=4+((x*5+y*3+i*7)%23),ay=4+((x*7+y*11+i*13)%22);
+    rect(px+ax,py+ay,3,2,tone);
+   }
+  }
+ }
+}
 function drawLoopWatchEntity(){
  const w=s.room==='loop'&&!s.script&&s.flags.dalsuEncounter?ensureLoopWatch():null;
  if(!w)return null;

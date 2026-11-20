@@ -8,6 +8,8 @@
  camera.mode='mosaic';
  camera.help='기억 카드에 남은 취재 사진 한 장의 조각이 뒤섞였다. 두 조각을 차례로 눌러 자리를 맞춰 보자. 원본은 대문 안쪽, 나무, 결박된 인물의 모습을 담고 있다.';
  camera.answer=[0,1,2,3,4,5,6,7,8];
+ const opening=SCRIPTS.cameraPhotos[0];
+ if(opening?.say)opening.say='메모리 카드에서 손상된 취재 사진을 찾았다. 아홉 조각으로 흩어진 파일을 복원하면 그날 정원에서 무슨 일이 있었는지 확인할 수 있을 것 같다.';
  const locker=(SCRIPTS.detectiveLockerFirst||[]).find(n=>n.puzzleId==='case-locker');
  if(!locker)throw Error('Missing case-locker puzzle');
  locker.device='combination';
@@ -60,7 +62,7 @@ function makeDetectivePhoto(){
  // Restrained adult: coat silhouette, hands against trunk, rope and head.
  p(75,65,17,39,dark);p(77,69,14,8,'#4a5553');
  p(70,77,26,43,'#424a48');p(74,80,18,42,'#647069');
- p(73,71,18,8,'#7d7770');p(77,68,12,14,skin);
+ p(73,71,18,8,'#7d7770');p(77,68,12,14,'#817f73');
  p(75,64,15,5,'#292b2b');p(73,66,5,12,'#2f3331');
  p(77,84,5,13,'#aeb2a3');p(84,86,8,3,'#75817b');
  p(73,114,7,21,dark);p(86,114,7,23,dark);

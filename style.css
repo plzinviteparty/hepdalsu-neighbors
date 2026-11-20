@@ -113,3 +113,28 @@
  #choices .caseAnswer{flex-basis:100%;min-height:35px}
  #choices .caseActions button{flex-basis:calc(50% - 7px);font-size:11px;padding:9px 6px}
 }
+
+
+/* Two tactile case devices share the existing old-paper / metal file UI. */
+#choices .tactileCase{width:100%}
+#choices .tactileGuide{font-size:12px;color:#544b43;background:#e7dbc3;border-left:4px solid #756858;padding:8px 10px;margin:12px 0}
+#choices .photoRepair{width:min(100%,310px);aspect-ratio:1;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));grid-template-rows:repeat(3,minmax(0,1fr));gap:2px;background:#1b2022;border:7px solid #302e2b;box-shadow:inset 0 0 0 2px #b7ab91,3px 5px 0 #8f8574;margin:14px auto 8px;touch-action:manipulation}
+#choices .photoRepair .photoFragment{display:block;min-width:0;min-height:0;width:100%;height:100%;padding:0!important;margin:0;border:2px solid #2c3433!important;border-radius:0;background-color:#35423f;background-repeat:no-repeat;background-size:300% 300%;image-rendering:pixelated;touch-action:manipulation;cursor:pointer;box-shadow:inset 0 0 0 1px #8c918382}
+#choices .photoRepair .photoFragment.picked{border:3px solid #f7d092!important;outline:3px solid #634f37;outline-offset:-1px;filter:brightness(1.12)}
+#choices .photoRepair .photoFragment:focus-visible,#choices .lockArrow:focus-visible{outline:3px solid #d49f59;outline-offset:1px}
+#choices .tactileCounter{font:11px/1.55 ui-monospace,monospace;text-align:center;color:#5a554d;margin:8px 0}
+#choices .lockFace{max-width:390px;margin:15px auto;padding:14px 12px;background:repeating-linear-gradient(90deg,#575c5a 0,#575c5a 5px,#535653 6px,#535653 8px);border:5px solid #313538;box-shadow:inset 0 0 0 3px #999386,3px 5px 0 #625f57;text-align:center}
+#choices .lockEngraving{background:#393b3a;border:1px solid #b4aaa0;color:#dad0b9;font:12px/1.6 ui-monospace,monospace;letter-spacing:1px;margin:0 0 12px;padding:5px 7px}
+#choices .lockDigits{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px}
+#choices .lockDigit{min-width:0;display:flex;flex-direction:column;align-items:stretch;gap:6px}
+#choices .lockDigit small{color:#eee1cb;font:10px/1.4 system-ui,sans-serif;min-height:29px;display:flex;align-items:center;justify-content:center}
+#choices .lockDigit strong{font:700 clamp(26px,5vw,37px)/1.5 ui-monospace,monospace;color:#e3d7bb;background:#24292b;border:3px solid #8c8780;box-shadow:inset 2px 3px 0 #11171a,inset -2px -2px 0 #69716a;text-align:center}
+#choices .lockDigit .lockArrow{background:#777b73!important;color:#f9ecd3!important;border:2px solid #333b39!important;min-height:43px;text-align:center;font-size:18px!important;padding:5px!important;touch-action:manipulation}
+#choices .lockDigit .lockArrow:active{background:#aba68a!important}
+@media(max-width:480px){
+ #choices .photoRepair{width:min(100%,256px);border-width:5px}
+ #choices .lockFace{padding:10px 7px}
+ #choices .lockDigits{gap:5px}
+ #choices .lockDigit small{font-size:9px;min-height:36px}
+ #choices .lockDigit .lockArrow{min-height:42px}
+}

@@ -19,7 +19,36 @@ function objects(){
  return (s.dropped||[]).filter(d=>d.room===s.room).map(d=>({id:'drop:'+d.id,x:d.x,y:d.y,kind:'book',label:ITEMS[d.id][0]+' (놓아둠)'})).concat(active);
 }
 function addItem(id){if((s.dropped||[]).some(d=>d.id===id))return;if(!s.inventory.includes(id))s.inventory.push(id)}
-function setRoom(room,x,y){if(!MAPS[room])throw Error('Unknown map '+room);resetJoystick();s.room=room;s.x=x;s.y=y;s.face='down';s.trail=[];path=[];pathTarget=null;drawX=x*TS+16;drawY=y*TS+16;trailDraw=[];camera.x=Math.max(0,Math.min(drawX-320,MAPS[room].w*TS-640));camera.y=Math.max(0,Math.min(drawY-192,MAPS[room].h*TS-384));sound(130,.22)}
+// Keep all chapter transitions (including existing saved door positions) on a
+// walkable tile. A number of legacy scenes arrived on the exact door object.
+function arrivalCell(room,x,y){
+ const m=MAPS[room],blocked=collision(room);
+ const occupied=new Set(m.objects.filter(o=>(!o.need||s.flags[o.need])&&(!o.hide||!s.flags[o.hide])&&!['bone','pen','mark','ghostcat'].includes(o.kind)).map(o=>o.x+','+o.y));
+ for(const item of s.dropped||[])if(item.room===room)occupied.add(item.x+','+item.y);
+ const free=(a,b)=>a>=1&&a<m.w-1&&b>=3&&b<m.h-1&&!blocked.has(a+','+b)&&!occupied.has(a+','+b);
+ if(free(x,y))return [x,y];
+ for(let radius=1;radius<=4;radius++){
+  const near=[];
+  for(let dx=-radius;dx<=radius;dx++){
+   const rest=radius-Math.abs(dx);
+   for(const dy of rest===0?[0]:[-rest,rest]){
+    const a=x+dx,b=y+dy;if(!free(a,b))continue;
+    const otherDoors=m.objects.filter(o=>o.kind==='door'&&(o.x!==x||o.y!==y)&&Math.hypot(o.x-a,o.y-b)<=1.55).length;
+    near.push({a,b,score:otherDoors*3+(dy<0?1:0)+Math.abs(dx)*.05});
+   }
+  }
+  if(near.length){near.sort((u,v)=>u.score-v.score||u.a-v.a||u.b-v.b);return [near[0].a,near[0].b]}
+ }
+ return [x,y];
+}
+function setRoom(room,x,y){
+ if(!MAPS[room])throw Error('Unknown map '+room);
+ resetJoystick();s.room=room;[x,y]=arrivalCell(room,x,y);
+ s.x=x;s.y=y;s.face='down';s.trail=[];path=[];pathTarget=null;
+ drawX=x*TS+16;drawY=y*TS+16;trailDraw=[];
+ camera.x=Math.max(0,Math.min(drawX-320,MAPS[room].w*TS-640));
+ camera.y=Math.max(0,Math.min(drawY-192,MAPS[room].h*TS-384));sound(130,.22)
+}
 function run(script){if(script==='danceIntro'&&!s.flags.boneFound)script='needBone';if(!SCRIPTS[script])throw Error('Unknown scene '+script);if(['changwonWait','changwonOffer','changwonJoin'].includes(script))s.flags.changwonMet=true;s.script=script;s.step=0;s.miniProgress=0;keys={};resetJoystick();path=[];pathTarget=null;flush()}
 function flush(){let limit=0;while(s.script){if(limit++>150)throw Error('Scene loop');const n=current();if(n?.op==='allParty'){s.script=REQUIRED_PARTY.every(id=>s.party.includes(id))?n.yes:n.no;s.step=0;continue}if(!n){s.script=null;s.step=0;idle();autoSave();updateUI();return}if(n.op==='enterDoor'){s.script=chooseScene(n.id);s.step=0;continue}if(n.statueTrial){renderStatueTrial(n);return}if(n.say){renderText(n.who,n.say);return}if(n.choice){renderChoice(n);return}if(n.puzzle){if(puzzleSolved(n)){s.step++;continue}renderPuzzle(n);return}if(n.mini){if(s.flags.danced){s.step++;continue}renderDance();return}if(n.ending){finish(n.ending);return}if(n.jump){s.script=n.jump;s.step=0;continue}if(n.branch){s.script=s.flags[n.branch]?n.yes:n.no;s.step=0;continue}s.step++;if(n.op==='flag'){s.flags[n.key]=n.value;if(n.key==='chaseActive'&&n.value){s.chase={x:-3,y:8,grace:2,elapsed:0,beat:0};autoSave()}}if(n.op==='give')addItem(n.id);if(n.op==='drop'){s.inventory=s.inventory.filter(id=>id!==n.id);s.dropped=s.dropped||[];s.dropped.push({id:n.id,room:s.room,x:s.x,y:s.y})}if(n.op==='remove')s.inventory=s.inventory.filter(x=>x!==n.id);if(n.op==='party'){if(n.join&&!s.party.includes(n.id))s.party.push(n.id);if(!n.join)s.party=s.party.filter(x=>x!==n.id);s.trail=[];trailDraw=[]}if(n.op==='room'){setRoom(n.room,n.x,n.y);autoSave()}}idle();updateUI()}
 function renderText(who,text){$('#who').textContent=who||' ';$('#words').textContent=text;$('#choices').replaceChildren();$('#next').hidden=false;updateUI()}

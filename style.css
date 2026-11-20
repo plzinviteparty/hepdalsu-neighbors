@@ -171,3 +171,12 @@
 #choices .detectiveBoard.compact .detectiveLink strong{font-size:11px}
 #choices .detectiveBoard.compact .detectiveLink p{font-size:11px;line-height:1.5}
 @media(max-width:650px){.detectiveBoard{padding:10px;margin:10px 0}.detectiveEvidenceList{grid-template-columns:1fr}.detectiveEvidence{padding:9px}.detectiveEvidence strong{font-size:12px}}
+
+/* Optional companion testimony, handled as part of each evidence file. */
+#choices .companionInvestigation{margin:13px 0 7px;padding:10px 11px;background:#d4c8ad;border:2px solid #9b896d;box-shadow:2px 3px 0 #776957;color:#373a3a}
+#choices .companionInvestigationHead{color:#695b4a;font:700 11px/1.5 ui-monospace,monospace;letter-spacing:.4px;margin-bottom:8px}
+#choices .companionInvestigationChoices{display:flex;flex-wrap:wrap;gap:7px}
+#choices .companionInvestigationAsk{min-height:38px;padding:8px 10px;background:#e8dfcb!important;border:1px solid #857765!important;font:700 12px/1.4 system-ui,sans-serif!important;color:#41423c!important;text-align:center;flex:1 1 116px}
+#choices .companionInvestigationAsk.active{background:#566861!important;color:#f4ecdd!important;border-color:#283b34!important}
+#choices .companionInvestigationQuote{background:#e7dcbf;border-left:3px solid #677970;padding:11px 12px;margin:10px 0 2px;color:#353e3b;font:12px/1.7 system-ui,sans-serif;white-space:pre-line}
+@media(max-width:520px){#choices .companionInvestigation{padding:9px 8px}#choices .companionInvestigationAsk{min-height:44px;flex-basis:100%;font-size:11px!important}}

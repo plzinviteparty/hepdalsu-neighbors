@@ -185,7 +185,7 @@ function renderPuzzle(n){
  if(n.requires&&!s.inventory.includes(n.requires)){paragraph($('#choices'),'장치에 '+ITEMS[n.requires][0]+'을 사용할 수 있을 것 같다.');button($('#choices'),'물러난다',leavePuzzle);return}
  const state=s.puzzleState||(s.puzzleState={id:s.script+':'+s.step,values:[0,0,0],tries:0});
  if(state.id!==s.script+':'+s.step){s.puzzleState=null;return renderPuzzle(n)}
- if(n.device==='evidence')return renderEvidencePuzzle(n,state);
+ if(n.device==='photo-grid'||n.device==='combination')return renderTactilePuzzle(n,state);if(n.device==='evidence')return renderEvidencePuzzle(n,state);
  if(n.investigationWarning&&!['dalsuKnown','readRecord','investorClue','incidentMemoRead','waterOrigin','recruitmentClue','projectClue'].every(k=>s.flags[k]))paragraph($('#choices'),'이 장치를 열면 되돌아오기 어려울 수 있다. 조사하지 않은 기록이 있다면 먼저 돌아가자.','warning');
  if(n.device==='chairs'||n.device==='pipes')return renderSpatialPuzzle(n,state);
  const panel=document.createElement('div');panel.className='mechanism '+(n.device||'dial');$('#choices').append(panel);

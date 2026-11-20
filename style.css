@@ -180,3 +180,7 @@
 #choices .companionInvestigationAsk.active{background:#566861!important;color:#f4ecdd!important;border-color:#283b34!important}
 #choices .companionInvestigationQuote{background:#e7dcbf;border-left:3px solid #677970;padding:11px 12px;margin:10px 0 2px;color:#353e3b;font:12px/1.7 system-ui,sans-serif;white-space:pre-line}
 @media(max-width:520px){#choices .companionInvestigation{padding:9px 8px}#choices .companionInvestigationAsk{min-height:44px;flex-basis:100%;font-size:11px!important}}
+
+/* Duo and trio exchanges stay legible on narrow screens. */
+.menuActions .banterTopic{white-space:pre-line;text-align:left;flex:1 1 220px;min-width:0;line-height:1.55;padding:11px 14px}
+@media(max-width:560px){.menuActions .banterTopic{flex-basis:100%;min-height:48px;padding:11px 12px}}

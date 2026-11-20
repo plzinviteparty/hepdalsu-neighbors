@@ -105,10 +105,7 @@ function openCompanionTalkMenu(){
  const choices=row(panel);
  for(const id of ['kim','jubin','changwon','nasol','patient05']){
   if(!s.party.includes(id))continue;
-  button(choices,names[id]+'와 이야기',()=>{
-   closeModal();
-   run('companionTalk_'+id);
-  });
+  button(choices,names[id]+'와 이야기',()=>openCompanionTopicMenu(id));
  }
  const back=row(panel);
  button(back,'메뉴로',openMenu);

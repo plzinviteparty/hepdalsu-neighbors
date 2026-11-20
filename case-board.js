@@ -64,9 +64,9 @@ function addCaseBoardUI(root,{compact=false}={}){
  const links=caseBoardElement('div','detectiveLinks');board.append(links);
  for(const item of state.connections){
   const row=caseBoardElement('article','detectiveLink'+(item.ready?' ready':' locked'));links.append(row);
-  row.append(caseBoardElement('strong','',item.ready?'● '+item.title:'○ '+item.title));
-  const missing=item.requires.map(f=>CASE_LEADS.find(x=>x.flag===f)).filter(x=>x&&!s.flags[x.flag]);
-  row.append(caseBoardElement('p','',item.ready?item.note:'필요한 기록: '+missing.map(x=>x.title).join(' · ')));
+  const found=item.requires.map(f=>CASE_LEADS.find(x=>x.flag===f)).filter(x=>x&&s.flags[x.flag]);
+  row.append(caseBoardElement('strong','',item.ready?'● '+item.title:'○ 미완성 연결 · '+found.length+' / '+item.requires.length));
+  row.append(caseBoardElement('p','',item.ready?item.note:found.length?'현재 확보된 기록: '+found.map(x=>x.title).join(' · '):'관련 증거를 수집해야 관계를 확인할 수 있다.'));
  }
  if(s.flags.caseSolved)board.append(caseBoardElement('p','detectiveCaseSolved','사건 재구성 완료 · 최종 조사 기록을 확보했다.'));
  return board;

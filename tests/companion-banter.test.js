@@ -58,7 +58,7 @@ const run=new Function('assert',
  for(const talk of PARTY_BANTER){
   const scene='partyBanter_'+talk.id;
   assert(SCRIPTS[scene]&&SCRIPTS[scene+'Before']&&SCRIPTS[scene+'After'],'Missing branch: '+scene);
-  assert.equal(SCRIPTS[scene].branch,talk.flag);
+  assert.equal(SCRIPTS[scene][0].branch,talk.flag);
   const early=play(scene),late=play(scene,{[talk.flag]:true});
   assert.equal(early.length,talk.early.length,'Unreachable early dialogue '+talk.id);
   assert.equal(late.length,talk.late.length,'Unreachable later dialogue '+talk.id);

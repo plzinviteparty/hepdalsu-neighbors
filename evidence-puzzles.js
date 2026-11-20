@@ -125,6 +125,7 @@ function renderEvidencePuzzle(n,raw){
  const tape=document.createElement('div');tape.className='casePaperTape';paper.append(tape);
  const title=document.createElement('h3');title.className='casePaperTitle';title.textContent=n.title;paper.append(title);
  const help=document.createElement('p');help.className='casePaperInstructions';help.textContent=n.help;paper.append(help);
+ if(n.puzzleId==='case-final')addFinalCaseLinks(paper);
  $('#words').textContent='서류의 내용을 확인하고 빈칸을 채우자.';
  const missing=(n.requiresFlags||[]).map((f,i)=>s.flags[f]?null:n.requiresNames[i]).filter(Boolean);
  if(missing.length){

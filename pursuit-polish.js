@@ -62,17 +62,18 @@ function tickLoopWatch(dt){
  w.grace=Math.max(0,w.grace-dt);
  const seen=w.grace===0&&loopWatchCanSee(w);
  if(seen){
+  if(w.mode==='patrol'){w.mode='alert';w.path=[];w.replan=0}
   w.lastX=s.x;w.lastY=s.y;w.lost=0;w.alert=Math.min(1,w.alert+dt*1.25);
   if(w.alert>=1&&w.mode!=='chase'){
    w.mode='chase';w.path=[];w.replan=0;
    notify('허달수가 이쪽을 봤다! 모퉁이를 돌아 시야를 끊자.',2.8);
    sound(158,.12,'square',.032);
-  }else if(w.mode==='patrol'&&!w.seenNotice&&w.alert>.25){
+  }else if(w.mode==='alert'&&!w.seenNotice&&w.alert>.25){
    w.seenNotice=true;notify('구두 굽 소리가 멎었다. 누군가 지켜보고 있다.',2.2);
   }
  }else{
   w.alert=Math.max(0,w.alert-dt*.95);
-  if(w.alert===0)w.seenNotice=false;
+  if(w.alert===0){w.seenNotice=false;if(w.mode==='alert'){w.mode='patrol';w.path=[];w.replan=0}}
   if(w.mode==='chase'){
    w.lost+=dt;
    if(w.lost>3.5){
@@ -93,6 +94,7 @@ function tickLoopWatch(dt){
   sound(130,.22,'square',.035);
   return;
  }
+ if(w.mode==='alert')return;
  w.replan-=dt;
  if(w.replan<=0&&Math.abs(w.x-Math.round(w.x))<.09&&Math.abs(w.y-Math.round(w.y))<.09){
   let target;

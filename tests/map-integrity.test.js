@@ -10,7 +10,7 @@ const scripts = [
  'fasting-room.js','evidence-puzzles.js','detective-route.js',
  'pixel-polish.js','observation-polish.js','capture-cinematic.js',
  'story-continuity.js','prop-readability.js','facility-tone.js',
- 'ritual-readability.js','dormitory-furnishings.js','tactile-puzzles.js','case-board.js'
+ 'ritual-readability.js','dormitory-furnishings.js','tactile-puzzles.js','case-board.js','pursuit-polish.js'
 ];
 const read = f => fs.readFileSync(path.join(root,f),'utf8');
 const combined = scripts.map(read).join('\n');

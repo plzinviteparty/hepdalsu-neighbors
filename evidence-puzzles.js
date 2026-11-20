@@ -172,9 +172,7 @@ function renderEvidencePuzzle(n,raw){
    });
   });
  }
- if(n.hintParty&&s.party.includes(n.hintParty)){
-  const hint=document.createElement('p');hint.className='caseCompanionNote';hint.textContent=n.hintText;paper.append(hint);
- }
+ renderCompanionInvestigation(n,raw,paper);
  if(raw.tries){
   const warn=document.createElement('p');warn.className='caseWrong';warn.textContent='문서 내용이 일치하지 않는다. 다시 대조해 보자.';paper.append(warn);
  }

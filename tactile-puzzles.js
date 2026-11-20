@@ -156,6 +156,7 @@ function renderTactilePuzzle(n,raw){
   const note=document.createElement('p');note.className='tactileCounter';
   note.textContent='왼쪽: 분류 문자 숫자 / 가운데·오른쪽: 보관 번호';paper.append(note);
  }
+ renderCompanionInvestigation(n,raw,paper);
  if(raw.tries){const error=document.createElement('p');error.className='caseWrong';error.textContent=n.device==='photo-grid'?'사진의 경계가 일치하지 않는다. 조각을 다시 살펴보자.':'번호가 맞지 않는다. 수거품의 분류와 번호를 대조하자.';paper.append(error)}
  const actions=document.createElement('div');actions.className='caseActions';paper.append(actions);
  button(actions,n.device==='photo-grid'?'사진 복원 완료':'보관함 열기',()=>{

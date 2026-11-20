@@ -53,7 +53,7 @@ const run=new Function('assert',
  assert.equal(partyBanterAvailable([]).length,0);
  assert.equal(partyBanterAvailable(['kim']).length,0);
  assert.equal(partyBanterAvailable(['kim','changwon']).length,1);
- assert.equal(partyBanterAvailable(['kim','changwon','nasol']).length,3);
+ assert.equal(partyBanterAvailable(['kim','changwon','nasol']).length,4);
  assert.equal(partyBanterAvailable(EXPECTED).length,9);
  for(const talk of PARTY_BANTER){
   const scene='partyBanter_'+talk.id;

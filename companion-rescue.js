@@ -108,6 +108,7 @@ function openCompanionTalkMenu(){
   button(choices,names[id]+'와 이야기',()=>openCompanionTopicMenu(id));
  }
  if(partyBanterAvailable(s.party).length)button(row(panel),'동료들끼리 대화',openPartyBanterMenu);
+ button(row(panel),'동료들 상태 확인',openCompanionTensionMenu);
  const back=row(panel);
  button(back,'메뉴로',openMenu);
  button(back,'게임으로',closeModal,'primary');

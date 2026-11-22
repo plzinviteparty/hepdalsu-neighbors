@@ -1,6 +1,6 @@
 'use strict';
 // Dedicated pixel-art prologue plates. Rendered at the game's 640x384 logical resolution.
-const PROLOGUE_ILLUSTRATIONS = Object.fromEntries([['road','art/roadside-illustration.svg'],['mansion','art/mansion-illustration.svg']].map(([id,src])=>{const img=new Image();img.src=src;return [id,img]}));
+const PROLOGUE_ILLUSTRATIONS = Object.fromEntries([['road','art/intro-female-road.svg'],['mansion','art/intro-female-mansion.svg']].map(([id,src])=>{const img=new Image();img.src=src;return [id,img]}));
 function drawProloguePlate(step,time,ctx){
  const artId=step<=4?'road':step<=7?'mansion':null;
  const art=artId&&PROLOGUE_ILLUSTRATIONS[artId];

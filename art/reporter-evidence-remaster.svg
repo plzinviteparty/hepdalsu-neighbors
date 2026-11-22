@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="720" viewBox="0 0 720 720">
+<defs>
+ <linearGradient id="sky" x2=".15" y2="1"><stop stop-color="#25272c"/><stop offset=".7" stop-color="#65706b"/><stop offset="1" stop-color="#847e70"/></linearGradient>
+ <linearGradient id="trunk"><stop stop-color="#292f30"/><stop offset=".5" stop-color="#5d5951"/><stop offset="1" stop-color="#272d2d"/></linearGradient>
+ <linearGradient id="fog" x2="0" y2="1"><stop stop-color="#aab0a4" stop-opacity="0"/><stop offset=".4" stop-color="#aaa99c" stop-opacity=".28"/><stop offset="1" stop-color="#9e9787" stop-opacity=".24"/></linearGradient>
+ <radialGradient id="flash" cx=".18" cy=".06" r=".95"><stop stop-color="#eddbbb" stop-opacity=".4"/><stop offset=".45" stop-color="#e7d5b3" stop-opacity=".04"/><stop offset="1" stop-color="#222423" stop-opacity=".34"/></radialGradient>
+ <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".48" numOctaves="3" seed="19"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope=".13"/></feComponentTransfer></filter>
+</defs>
+<rect width="720" height="720" fill="url(#sky)"/>
+<path d="M0 168L68 121 165 133 227 96 340 114 390 102 456 125 513 89 620 99 720 83V720H0Z" fill="#303b37"/>
+<path d="M0 298Q140 243 314 281Q498 305 720 233V720H0Z" fill="#39443c"/>
+<path d="M0 555Q220 490 381 551T720 516V720H0Z" fill="#4e554c"/>
+<!-- gate and masonry on the left -->
+<path d="M27 97h216v514H27z" fill="#292e2f"/>
+<path d="M49 114h178v451H49z" fill="#66706a"/>
+<path d="M69 130v426M103 130v426M137 130v426M171 130v426M205 130v426" stroke="#222b2c" stroke-width="12"/>
+<path d="M39 180h197v17H39M40 467h197v16H40" stroke="#222729" stroke-width="12"/>
+<path d="M64 119l8-29 8 29m23 0 8-29 8 29m21 0 8-29 8 29m22 0 8-29 8 29" fill="#252e2d"/>
+<path d="M17 60h52v580H17z" fill="#41484a" stroke="#212729" stroke-width="9"/>
+<path d="M17 94h52m-52 477h52" stroke="#8e9085" stroke-width="11"/>
+<path d="M0 625q135-40 244-17" stroke="#afb0a3" stroke-width="10" opacity=".45" fill="none"/>
+<!-- massive tree and readable binding point -->
+<path d="M540 720Q540 546 552 400T554 0H681Q629 317 644 513L660 720Z" fill="url(#trunk)" stroke="#202729" stroke-width="16"/>
+<path d="M571 0Q587 187 568 352t6 307m46-660q-23 210 0 371t-2 312m31-674q-19 177-3 327" stroke="#938677" opacity=".54" stroke-width="11" fill="none"/>
+<path d="M547 124Q501 62 458 48M580 83Q646 58 720 9M564 196Q515 149 456 119" stroke="#2a3330" stroke-width="39" fill="none"/>
+<path d="M531 101l-48-47m75 129-58-39m154-88 52-31" stroke="#807e68" stroke-width="9" opacity=".51"/>
+<g fill="#28382f"><path d="M442 21l66 13 56 46-47 41-81-24zM601 0h119v70l-77 41-48-57zM419 106l86 13 51 70-75-6-71-33z"/></g>
+<!-- restrained person, dark hair, distinct head, torso, arms and legs -->
+<path d="M377 420q-36 78-34 177l-6 95 56 2 18-133 26-55" fill="#353b3b" stroke="#202729" stroke-width="10"/>
+<path d="M457 424q42 83 29 161l-6 108-51-1-6-131-22-69" fill="#323a39" stroke="#1e2627" stroke-width="10"/>
+<path d="M366 398Q351 361 365 321Q394 283 446 304Q477 320 491 397L469 518 367 511Z" fill="#7e8177" stroke="#283032" stroke-width="12"/>
+<path d="M390 320L381 485m44-162 9 173" stroke="#bbc0af" opacity=".49" stroke-width="12"/>
+<path d="M383 336q-24 47-40 127l39 13 28-100M466 336q25 49 36 128l-38 12-21-109" fill="#585f59" stroke="#32383a" stroke-width="10"/>
+<path d="M352 460q22 1 32 17l-12 23-23-8m111-20q23-19 39-11l5 26-30 16" fill="#ab9d87" stroke="#584f4b" stroke-width="8"/>
+<path d="M374 267q-14-47 9-71 27-25 67-4 26 20 11 65l-11 41-62 5Z" fill="#292a2b" stroke="#202629" stroke-width="10"/>
+<path d="M387 231q17-19 48-10l19 29-8 51q-22 20-50 1-22-25-9-71Z" fill="#c7b2a0" stroke="#65584f" stroke-width="8"/>
+<path d="M386 248q18-48 50-30l24 28q-27-13-44-11l-29 29z" fill="#333133"/>
+<path d="M401 269h12m19 0h11" stroke="#403835" stroke-width="6"/>
+<path d="M420 287l9 2" stroke="#8a6c61" stroke-width="4"/>
+<!-- restraint rope around wrists and waist, clearly anchors to tree -->
+<path d="M343 462q113 5 238-8m-239 16q121 11 247-9m-228 17q89 17 220 2" stroke="#c6b28c" stroke-width="11" fill="none"/>
+<path d="M345 460q116 7 237-9m-240 20q114 12 240-9" stroke="#62554c" stroke-width="3" fill="none"/>
+<path d="M405 386q97 38 175-2m-176 17q98 41 174 1" stroke="#b49b75" stroke-width="9" fill="none"/>
+<path d="M410 385l16 22-15 16-16-17z" fill="#a49176" stroke="#544941" stroke-width="5"/>
+<!-- nearby standing cultists; distinct heads and long robes -->
+<path d="M175 380q5-69 57-71t66 69l42 253H139Z" fill="#74756c" stroke="#343b39" stroke-width="12"/>
+<path d="M190 361q11-83 42-94 42 8 49 94" fill="#4c5050" stroke="#262e2f" stroke-width="9"/>
+<ellipse cx="235" cy="337" rx="34" ry="46" fill="#b5a495" stroke="#373b39" stroke-width="7"/>
+<path d="M194 321q31-63 79 2" stroke="#424340" stroke-width="25" fill="none"/>
+<path d="M205 342h20m24-1h19" stroke="#373a38" stroke-width="5"/>
+<path d="M140 594q62 28 176 0" stroke="#96978b" stroke-width="7" opacity=".53" fill="none"/>
+<path d="M657 401q-10-70 29-90l34 16v308h-92Z" fill="#4c514e" stroke="#292f2e" stroke-width="12"/>
+<ellipse cx="682" cy="347" rx="26" ry="41" fill="#9c9081"/>
+<path d="M653 333q18-63 67 0" stroke="#292f2f" stroke-width="23" fill="none"/>
+<!-- flash scratches, newspaper-like emulsion, grain -->
+<path d="M0 0H720V720H0Z" fill="url(#fog)"/>
+<path d="M34 52l-12 84m62 3-5 33M677 540l11 71m-77 4 15 85" stroke="#eff0dc" stroke-width="3" opacity=".21"/>
+<path d="M0 0h720v9H0zm0 711h720v9H0z" fill="#1e2224"/>
+<rect width="720" height="720" fill="url(#flash)"/>
+<rect width="720" height="720" filter="url(#grain)" opacity=".32"/>
+</svg>

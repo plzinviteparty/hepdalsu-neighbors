@@ -13,7 +13,7 @@ const modules=[
  'ritual-readability.js','dormitory-furnishings.js','tactile-puzzles.js',
  'case-board.js','pursuit-polish.js','companion-rescue.js',
  'companion-investigation.js','companion-relationships.js',
- 'companion-banter.js','companion-reactivity.js','companion-tension.js'
+ 'companion-banter.js','companion-reactivity.js','companion-tension.js','route-backtrack.js'
 ];
 const world=new Function(modules.map(read).join('\n')+
  '\nreturn {MAPS,SCRIPTS,ENDINGS,REQUIRED_PARTY,COMPANION_REACTIONS,COMPANION_ACTION_REACTIONS,COMPANION_TENSION_PROFILES};')();
@@ -40,6 +40,10 @@ assert(SCRIPTS.rescued.some(n=>n.op==='flag'&&n.key==='refugeReached'),
  'Human escape route does not mark refuge arrival');
 assert(!SCRIPTS.rescued.some(n=>n.op==='flag'&&n.key==='ufoDone'),
  'Legacy UFO flag should not be written by new playthroughs');
+assert(MAPS.wreck.objects.some(o=>o.id==='refugeServiceDoor'),'No return route from refuge');
+assert(MAPS.loop.objects.some(o=>o.id==='loopServiceDoor'&&o.need==='refugeReached'),'Backtrack shortcut is open before pursuit');
+assert(SCRIPTS.finalChoice.some(n=>n.options?.some(o=>o.to==='returnToRefuge')),'Final room cannot return to missing evidence');
+assert(SCRIPTS.returnToRefuge?.some(n=>n.op==='room'&&n.room==='wreck'),'Final return does not reach refuge');
 assert(!MAPS.wreck.props.some(([kind])=>kind==='ufo'),
  'Old UFO furniture remained in the refuge');
 assert(!SCRIPTS.danceIntro.some(n=>n.mini),
@@ -71,6 +75,7 @@ assert(html.indexOf('companion-tension.js')<html.indexOf('game.js'),
 const engine=read('game.js');
 assert(engine.includes('f.refugeReached||f.ufoDone'),
  'Old v1 save flag is no longer recognized');
+assert(engine.includes("s.flags.ufoDone||['wreck','bedroom','annex05'].includes(s.room)"),'Old escape saves are not migrated');
 assert(engine.includes("const STORE='hepdalsu-neighbors-v1'"),
  'Save namespace must not silently change');
 console.log(JSON.stringify({passed:true,areas:Object.keys(MAPS).length,

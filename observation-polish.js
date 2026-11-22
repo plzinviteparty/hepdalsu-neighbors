@@ -63,8 +63,8 @@
  // Keep the original ending branches and plot beats unchanged.
 })();
 
-// Detailed, transparent 38×46 pixel sprite shown only at the final reveal.
-const BRAIN_SPECIMEN_SRC='assets/brain-specimen-v2.png?v=2';
+// Balanced 38×46 specimen with reduced folds and palette to match the room.
+const BRAIN_SPECIMEN_SRC='assets/brain-specimen-balanced-v3.png?v=3';
 const BRAIN_SPECIMEN_IMAGE=typeof Image==='undefined'?null:new Image();
 if(BRAIN_SPECIMEN_IMAGE)BRAIN_SPECIMEN_IMAGE.src=BRAIN_SPECIMEN_SRC;
 
@@ -82,6 +82,8 @@ function drawObservationTile(x,y){
   p(px,py+28,32,4,'#111f2b');
   if(y<3){p(px+5,py+14,20,2,'#415865');p(px+8,py+16,15,2,'#1a2934')}
   if((x+y)%3===0)p(px+14,py+8,5,3,'#4d616a');
+  if(x%4===0){p(px+4,py+7,2,2,'#84989b66');p(px+25,py+22,2,2,'#0b1b2699')}
+  if(y===2&&x%3===1){p(px+7,py+25,18,1,'#6c858c66');p(px+11,py+22,2,3,'#1b2c3699')}
   return true;
  }
  p(px,py,32,32,(x+y)%2?'#293945':'#30414c');
@@ -91,6 +93,8 @@ function drawObservationTile(x,y){
  p(px+26,py+4,2,23,'#1b2b3658');
  if((x*7+y*11)%5===0){p(px+6,py+20,6,2,'#a4afa91a');p(px+17,py+11,4,2,'#101f2b45')}
  if(y===3){p(px,py,32,4,'#687f86');p(px+3,py+4,26,2,'#a3a79a')}
+  if((x+y*2)%4===0){p(px+13,py+5,2,2,'#80949b3d');p(px+23,py+25,5,1,'#0b1c2888')}
+  if(x%3===0&&y>4){p(px+28,py+3,2,3,'#1d303b89');p(px+29,py+2,1,1,'#9aa5a052')}
  return true;
 }
 function drawObservationProp(kind,x,y,frame=0){
@@ -130,6 +134,11 @@ function drawObservationProp(kind,x,y,frame=0){
    p(w/2-9,-h-7,3,h-8,'#72939a');
    p(-w/2-4,-h-18,w+8,8,metal);p(-w/2-5,0,w+10,8,shadowMetal);
    p(-w/2-3,-h-18,w+6,2,pale);
+    // Riveted containment housing and extra glass-edge depth.
+    p(-w/2-6,-h-13,3,h+13,'#203844');p(w/2+2,-h-12,3,h+12,'#213845');
+    p(-w/2-2,-h-11,2,h+10,'#8ba4a6a6');p(w/2-1,-h-10,2,h+9,'#6d919bb8');
+    p(-w/2-3,-h+5,3,7,'#9dadac');p(w/2,-h+16,3,7,'#8a9895');
+    p(-w/2-5,-h-20,w+10,2,'#899b9a');
    if(core){
     // The specimen stays concealed until the reveal, then floats in fluid.
     if(s.room==='lab'&&s.script==='detectiveCaught'&&s.step>=8){
@@ -173,17 +182,27 @@ function drawObservationProp(kind,x,y,frame=0){
     p(-11,-h+36,20,4,'#3e6570');p(-3,-h+39,6,10,'#56767d');
    }
    for(let i=0;i<4;i++)p(-w/2+5+i*7,-h-15,3,3,i===1?'#c6ae7c':pale);
-   p(-w/2+2,5,w-4,3,metal);break;
+    for(const xx of [-w/2+6,w/2-9]){p(xx,-h-9,2,2,'#d3d6bf99');p(xx,-5,3,2,'#526c73')}
+    p(-w/2+6,-h+9,2,15,'#c7d9cf40');
+    p(-w/2+2,5,w-4,3,metal);p(-w/2+8,8,w-16,2,'#334b57');break;
   }
   case 'labConsole':{
    p(-28,-41,56,44,dark);p(-26,-39,52,39,metal);p(-22,-36,45,23,shadowMetal);
    for(let j=0;j<4;j++)p(-18,-32+j*5,28+(j%2)*7,2,j===3?'#b69275':'#7a9f9c');
    for(let i=0;i<5;i++)p(-21+i*10,-8,5,4,i===2?'#a8847d':'#b2b4a6');
+    // Screen divisions and tiny calibration lights; no functional changes.
+    p(-22,-37,45,2,'#2d414e');p(-20,-35,2,20,'#9baead72');
+    p(1,-33,2,17,'#203440');p(4,-30,14,2,'#b1c2b4');
+    p(5,-24,9,2,'#74989c');p(4,-18,13,2,'#af8c80');
+    for(let i=0;i<5;i++)p(-20+i*10,-7,2,1,'#e0e0c282');
    p(-27,1,54,5,shadowMetal);break;
   }
   case 'labMonitor':{
    p(-17,-54,34,37,dark);p(-15,-52,30,33,metal);p(-12,-49,24,23,shadowMetal);
    for(let j=0;j<5;j++)p(-10,-45+j*4,19-(j%3)*4,2,j===4?'#b68b80':'#81a2a0');
+    p(-12,-46,2,22,'#648a8f');p(10,-46,2,22,'#172d3a');
+    for(const [px,py] of [[-8,-34],[-4,-37],[0,-32],[4,-40],[8,-35]])p(px,py,3,2,'#b1c8b5');
+    p(8,-49,2,2,'#e3b28c');
    p(-3,-18,6,10,metal);p(-12,-8,24,3,shadowMetal);break;
   }
   case 'labRack':{
@@ -192,27 +211,35 @@ function drawObservationProp(kind,x,y,frame=0){
     p(-14,-49+j*15,28,11,shadowMetal);
     for(let k=0;k<3;k++)p(-12+k*9,-46+j*15,5,6,j===2&&k===1?'#af8179':'#8ca59e');
    }
-   p(-19,-3,38,5,dark);break;
+    p(-19,-3,38,5,dark);p(-16,-2,32,2,'#7c8f8f');
+    for(let j=0;j<3;j++){p(-15,-51+j*15,2,2,'#b2c0b6');p(13,-50+j*15,2,2,'#b39f79')}
+    break;
   }
   case 'labChair':{
    p(-13,-29,26,19,shadowMetal);p(-10,-26,20,15,'#5c7074');
    p(-13,-11,26,7,metal);p(-3,-5,6,15,shadowMetal);
-   p(-12,7,24,3,metal);p(-16,9,7,3,dark);p(9,9,7,3,dark);break;
+    p(-12,7,24,3,metal);p(-16,9,7,3,dark);p(9,9,7,3,dark);
+    p(-9,-24,3,3,'#9cafaa');p(5,-24,3,3,'#9cafaa');p(-2,-4,3,10,'#8da5a3');break;
   }
   case 'labCeiling':{
    p(-29,-73,58,5,metal);p(-27,-71,54,2,pale);
    p(-21,-65,42,11,shadowMetal);p(-18,-62,36,4,'#a0b4af');
+    for(const xx of [-21,-10,9,19])p(xx,-69,3,3,'#758f91');
+    p(-10,-60,18,2,'#d0d5bc61');
    break;
   }
   case 'labDuct':{
    p(-60,-79,120,6,shadowMetal);p(-53,-76,106,2,metal);
    for(let i=0;i<7;i++)p(-42+i*14,-73,7,19,shadowMetal);
-   p(-35,-54,70,4,'#3b5663');break;
+    p(-35,-54,70,4,'#3b5663');p(-31,-51,62,2,'#7189906e');
+    for(let i=0;i<4;i++)p(-35+i*21,-58,4,6,'#1d3542');
+    p(18,-54,7,5,'#a9b8ac');break;
   }
   case 'labWarning':{
    p(-22,-63,44,46,dark);p(-20,-61,40,42,amber);p(-18,-59,36,39,'#4c5557');
    p(-13,-52,26,4,'#c4b694');p(-13,-43,20,3,'#a7a7a0');
    p(-13,-34,23,3,'#a7a7a0');p(-13,-25,15,3,'#c29c88');
+    p(-13,-18,26,2,'#263c47');p(-11,-57,3,3,'#be8f7e');p(9,-57,3,3,'#aac1b1');
    break;
   }
   default:cx.restore();return false;
@@ -229,6 +256,16 @@ function drawObservationFloor(){
  }
  p(5*TS+14,8*TS+14,10*TS+7,4,'#334959');
  p(5*TS+14,8*TS+14,10*TS+7,1,'#8091947c');
+  // Floor clamps and junctions align all three specimen tubes.
+  for(let tx=6;tx<=15;tx+=3){
+   p(tx*TS+10,8*TS+12,13,3,'#1e3743');
+   p(tx*TS+12,8*TS+13,9,1,'#8aa1a18c');
+   p(tx*TS+14,8*TS+10,3,3,'#607984');
+  }
+  for(const tx of [5,10,15]){
+   p(tx*TS+8,7*TS+16,16,4,'#1b343e');
+   p(tx*TS+12,7*TS+17,8,1,'#b0b9ab61');
+  }
  for(const [x,y] of [[4,9],[9,11],[17,9],[12,13],[15,12]]){
   p(x*TS+8,y*TS+9,8,2,'#253a4538');p(x*TS+23,y*TS+20,4,2,'#a8b4ae1d');
  }

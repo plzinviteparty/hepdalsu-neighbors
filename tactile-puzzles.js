@@ -21,7 +21,7 @@
 
 // Full-resolution scene, not a 144px canvas montage. The three-by-three
 // swapping puzzle still uses exactly the same indices, answer and save data.
-const detectivePhotoImage='art/reporter-evidence-remaster.svg';
+const detectivePhotoImage='art/reporter-evidence-final.webp';
 function makeDetectivePhoto(){return detectivePhotoImage;}
 
 function renderTactilePuzzle(n,raw){

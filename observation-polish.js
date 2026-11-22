@@ -63,6 +63,11 @@
  // Keep the original ending branches and plot beats unchanged.
 })();
 
+// Detailed, transparent 38×46 pixel sprite shown only at the final reveal.
+const BRAIN_SPECIMEN_SRC='assets/brain-specimen-v2.png?v=2';
+const BRAIN_SPECIMEN_IMAGE=typeof Image==='undefined'?null:new Image();
+if(BRAIN_SPECIMEN_IMAGE)BRAIN_SPECIMEN_IMAGE.src=BRAIN_SPECIMEN_SRC;
+
 function drawObservationTile(x,y){
  if(s.room!=='lab')return false;
  const px=x*TS-camera.x,py=y*TS-camera.y,m=MAPS.lab;
@@ -117,7 +122,7 @@ function drawObservationProp(kind,x,y,frame=0){
   }
   case 'labTankCore':
   case 'labTankSide':{
-   const core=kind==='labTankCore',h=core?59:50,w=core?37:30;
+   const core=kind==='labTankCore',h=core?63:50,w=core?47:30;
    p(-w/2-3,-h-15,w+6,h+20,dark);
    p(-w/2,-h-16,w,h+15,shadowMetal);
    p(-w/2+3,-h-11,w-6,h+5,blue);
@@ -126,16 +131,38 @@ function drawObservationProp(kind,x,y,frame=0){
    p(-w/2-4,-h-18,w+8,8,metal);p(-w/2-5,0,w+10,8,shadowMetal);
    p(-w/2-3,-h-18,w+6,2,pale);
    if(core){
-    // Neural tissue is intentionally withheld until the capture reveal.
+    // The specimen stays concealed until the reveal, then floats in fluid.
     if(s.room==='lab'&&s.script==='detectiveCaught'&&s.step>=8){
-     const pulse=Math.sin(frame*1.6)>0?'#ae7480':'#997080';
-     p(-9,-h+20,18,17,pulse);p(-11,-h+25,22,7,'#bc8d95');
-     p(-5,-h+15,11,9,'#bc8793');p(-8,-h+19,4,12,'#9d6976');
-     for(const [xx,yy] of [[-9,-h+28],[-3,-h+21],[4,-h+27],[7,-h+22]]){
-      p(xx,yy,6,2,'#d3a7aa');p(xx+2,yy+3,3,3,'#8b5367')
+     // Dark teal suspension fluid frames the pink gyri and deep center fissure.
+     p(-20,-h+10,40,49,'#2d4a58');
+     p(-18,-h+13,36,44,'#426775');
+     p(-20,-h+19,3,33,'#73969a55');
+     p(18,-h+16,2,36,'#a0c2be44');
+     const bob=Math.round(Math.sin(frame*1.3)*0.8);
+     if(BRAIN_SPECIMEN_IMAGE&&BRAIN_SPECIMEN_IMAGE.complete&&BRAIN_SPECIMEN_IMAGE.naturalWidth===38&&BRAIN_SPECIMEN_IMAGE.naturalHeight===46){
+      cx.save();cx.imageSmoothingEnabled=false;
+      cx.drawImage(BRAIN_SPECIMEN_IMAGE,-19,-h+12+bob,38,46);
+      cx.restore();
+     }else{
+      // Backup pixel anatomy while the image loads or if its URL is blocked.
+      for(const [xx,yy,ww,hh,color] of [
+       [-13,-h+18,12,23,'#b77f94'],[1,-h+18,12,23,'#ae738b'],
+       [-15,-h+24,30,14,'#c795a2'],[-12,-h+15,24,27,'#8b506f'],
+       [-10,-h+16,9,24,'#d19daa'],[1,-h+16,9,24,'#c48b9d'],
+       [-1,-h+16,2,26,'#532f4b'],
+       [-12,-h+21,10,2,'#653650'],[2,-h+22,10,2,'#653650'],
+       [-11,-h+28,9,2,'#653650'],[2,-h+30,10,2,'#653650'],
+       [-9,-h+34,8,2,'#72435d'],[2,-h+36,8,2,'#72435d'],
+       [-3,-h+40,6,9,'#b88295'],[-1,-h+48,2,7,'#945e77']
+      ])p(xx,yy,ww,hh,color);
      }
-     p(-2,-h+36,4,11,'#ae848b');p(-1,-h+46,3,9,pale);
-     p(-14,-h+8,28,1,'#9ab6b4');
+     // Restrained glass reflection; keep the specimen itself readable.
+     p(-20,-h+15,2,28,'#b0d1ce39');
+     p(19,-h+21,1,21,'#d5dbca40');
+     p(-21,-h+10,42,1,'#a2c8c472');
+     p(-17,-h+12,2,2,'#d3e4d091');
+     p(16,-h+38,2,2,'#badbd065');
+     p(-16,-h+52,3,2,'#b6d2d06a');
     }else{
      p(-11,-h+23,22,18,'#64838c');p(-7,-h+16,14,10,'#8da8a3');
      p(-9,-h+27,18,13,'#4d6976');

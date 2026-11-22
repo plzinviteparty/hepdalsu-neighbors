@@ -371,7 +371,7 @@ function migrateSolvedPuzzles(){
  const late=['chase','wreck','bedroom','lab'].includes(s.room);
  if(['pool','chase','wreck','bedroom','lab'].includes(s.room)||f.buttonTried||f.penFound)done['chair-path']=true;
  if(f.tofu||late)done['ankle-hose']=true;
- if(late||f.keptPen||f.ufoDone||['keepPen','dropPen','penLeft','chaseIntro'].includes(s.script))done['drain-passage']=true;
+ if(late||f.keptPen||f.refugeReached||f.ufoDone||['keepPen','dropPen','penLeft','chaseIntro'].includes(s.script))done['drain-passage']=true;
  // A legacy save may be in the same scene after the completed device.
  const nodes=SCRIPTS[s.script]||[];nodes.forEach((n,i)=>{if(n.puzzle&&i<s.step)done[puzzleKey(n)]=true});
 }

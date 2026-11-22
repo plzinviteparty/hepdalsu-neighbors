@@ -101,6 +101,7 @@ function openCompanionTopicMenu(id){
  button(choices,'왜 이곳에 왔는지',()=>ask('companionRelation_'+id+'Origin'));
  button(choices,'허달수에 대해',()=>ask('companionRelation_'+id+'Dalsu'));
  button(choices,'지금 할 일',()=>ask('companionTalk_'+id));
+ button(choices,'지금 기분은 어때?',()=>{const scene=companionTensionScene(id);if(scene)ask(scene)});
  const nav=row(panel);
  button(nav,'다른 동료',openCompanionTalkMenu);
  button(nav,'게임으로',closeModal,'primary');

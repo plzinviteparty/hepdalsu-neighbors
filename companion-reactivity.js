@@ -63,6 +63,9 @@ const COMPANION_REACTIONS=[
   ['patient05','제가 어디에 있었는지 이제 다른 사람한테도 설명할 수 있겠죠? 제 이름도 적혀 있고요.'],
   ['nasol','기록은 연결됐어요. 밖에 나가서는 사람들의 말을 서류 옆에 그대로 남겨야 해요.']]}
 ];
+// Optional responses to repetitive investigation and unsafe choices; these do not modify game progress.
+const COMPANION_ACTION_REACTIONS=[{"id":"repeat-archive","room":"landing","targets":["newspaper"],"requiresFlag":"dalsuKnown","attempts":2,"lines":[["nasol","연혁을 다시 읽어도 기사 내용이 저절로 사실이 되진 않아요. 누가 쓴 글인지도 남겨 둡시다."],["kim","날짜와 발언을 다시 대조하죠. 확인된 사실과 추측은 구별해야 합니다."]]},{"id":"repeat-investor","room":"ward","targets":["investorNote"],"requiresFlag":"investorClue","attempts":2,"lines":[["kim","제 이름이 적힌 문서라 자꾸 눈이 가는군요. 그래도 다른 사람들의 기록까지 확인해야 합니다."],["nasol","이 결재란은 이미 확인했어요. 다음 기록과 대조해 보는 게 좋겠어요."]]},{"id":"repeat-reporter","room":"ward","targets":["reporterTreatment"],"requiresFlag":"reporterTreatmentRead","attempts":2,"lines":[["nasol","다시 읽어도 기억나지 않는 시간은 그대로예요. 그래도 날짜와 투약 기록은 챙길래요."],["changwon","기억을 억지로 끼워 맞추실 필요는 없습니다. 기록을 확보했으니 다른 자료와 대조하죠."]]},{"id":"repeat-water","room":"bath","targets":["waterDelivery"],"requiresFlag":"waterOrigin","attempts":2,"lines":[["changwon","납품표는 공급 경로를 보여 줄 뿐입니다. 물의 성분까지 증명한 건 아니죠."],["jubin","상자 번호가 또 보이네요. 우리가 읽은 기록과 같다는 것만 적어 둘게요."]]},{"id":"repeat-recruitment","room":"research","targets":["recruitmentNote"],"requiresFlag":"recruitmentClue","attempts":2,"lines":[["changwon","몇 번을 확인해도 제가 동의했다는 기록은 없군요. 이 서류는 연구원 영입에 관한 것입니다."],["kim","다시 확인하셔도 좋습니다. 다만 피실험자 기록과 이 문서를 섞지는 맙시다."]]},{"id":"repeat-project","room":"research","targets":["projectRecord"],"requiresFlag":"projectClue","attempts":2,"lines":[["changwon","계획서에 적힌 목표와 실제로 얻었다는 결과는 다릅니다. 없는 내용을 추정하면 안 됩니다."],["nasol","서류를 계속 보는 이유는 알겠어요. 이제 여기에 적히지 않은 사람들의 말도 들어야죠."]]},{"id":"repeat-camera","room":"research","targets":["cameraReader"],"requiresFlag":"cameraPhotoSeen","attempts":2,"lines":[["nasol","사진은 복구됐어요. 더 열어 보기보다 원본을 안전하게 보관하는 일이 중요하겠네요."],["jubin","찍힌 사람의 동의 없이 공개하면 안 되겠죠. 일단 증거로만 남겨 둡시다."]]},{"id":"repeat-identity","room":"wreck","targets":["detectiveLocker"],"requiresFlag":"identityKnown","attempts":2,"lines":[["kim","의뢰서의 이름은 확인했습니다. 이제 서정윤 씨가 어디로 옮겨졌는지 찾아보죠."],["nasol","수첩에 적힌 의뢰 내용은 확보했어요. 다음 단서와 연결해 보죠."]]},{"id":"repeat-accident","room":"wreck","targets":["accidentLedger"],"requiresFlag":"accidentProof","attempts":2,"lines":[["kim","차량 번호는 맞군요. 운전한 사람과 이송을 결재한 사람은 구분해 둬야겠습니다."],["nasol","영상과 서류가 가리키는 건 같은 차량이에요. 그 이상의 지시는 추측하지 말아요."]]},{"id":"repeat-transfer","room":"annex05","targets":["patientIndex"],"requiresFlag":"patient05Located","attempts":2,"lines":[["patient05","제 이름이 적혀 있죠? 번호만 남은 건 아니죠?"],["nasol","이관 기록은 확보했어요. 정윤 씨에게 어떤 일이 있었는지는 본인이 말할 준비가 됐을 때 듣죠."]]},{"id":"repeat-scenery","scenery":true,"attempts":3,"lines":[["jubin","그 물건은 아까도 확인했어요. 다른 쪽도 살펴보면 어떨까요?"],["nasol","다시 살펴보는 건 좋지만, 새 흔적이 없다면 다음 장소로 가는 게 나을 것 같아요."]]},{"id":"risk-locked-ward","room":"ward","targets":["lockedWard"],"blockedBy":["wardQuiet","melted"],"attempts":2,"lines":[["nasol","잠긴 문을 계속 당기면 직원들이 소리를 들을 거예요. 제어함부터 봐요."],["kim","문이 그대로군요. 요란하게 건드리기보다 잠금장치를 살펴봅시다."]]},{"id":"risk-staff","room":"ward","targets":["nurse","nurse2"],"blockedBy":["melted"],"attempts":2,"lines":[["changwon","직원에게 같은 질문을 반복해 봐야 경계만 심해질 겁니다. 다른 길을 찾죠."],["nasol","저 직원은 밖에 내보내 줄 생각이 없어 보여요. 오래 이야기하지 말아요."]]},{"id":"risk-loop","room":"loop","targets":["loopWrong"],"attempts":2,"lines":[["jubin","그 문은 아까도 봤어요. 계속 열어 보기보다 벽의 흔적을 확인해요."],["kim","같은 출구를 반복해서 확인하고 있군요. 길을 표시하는 편이 낫겠습니다."]]},{"id":"risk-altar","room":"altar","targets":["altarTrial","altarHead0","altarHead1","altarHead2","altarHead3","altarHead4"],"blockedBy":["incidentMemoRead","altarAwake"],"attempts":2,"lines":[["nasol","저 사람들 말에 휘둘리지 말아요. 봉헌함과 문건부터 확인해야겠어요."],["kim","어떤 규칙인지 알기도 전에 시험에 응하지 맙시다. 이곳의 기록부터 살펴보죠."]]},{"id":"risk-patient","room":"annex05","targets":["patient05"],"blockedBy":["patient05Located","patient05Rescued"],"attempts":2,"lines":[["nasol","정윤 씨에게 같은 질문을 반복하지 말아요. 우선 이관 기록부터 확인하죠."],["changwon","당사자의 대답을 재촉해서는 안 됩니다. 문서를 먼저 확인해야 합니다."]]}];
+COMPANION_REACTIONS.push(...COMPANION_ACTION_REACTIONS);
 const COMPANION_REACTIONS_BY_ID=new Map();
 for(const entry of COMPANION_REACTIONS){
  const scene='ambientCompanion_'+entry.id;
@@ -76,9 +79,12 @@ function companionReactionQueue(entry){
  if(!entry.lines.some(([person])=>s.party.includes(person)))return;
  const record=s.companionReactions||(s.companionReactions={seen:[],pending:null});
  if(!Array.isArray(record.seen))record.seen=[];
- if(record.seen.includes(entry.id)||record.pending)return;
+ if(!Array.isArray(record.pendingQueue))record.pendingQueue=[];
+ if(record.seen.includes(entry.id)||record.pending===entry.id||record.pendingQueue.includes(entry.id))return;
+ if(record.pending&&record.pendingQueue.length>=5)return;
  record.seen.push(entry.id);
- record.pending=entry.id;
+ if(record.pending)record.pendingQueue.push(entry.id);
+ else record.pending=entry.id;
 }
 function companionReactionRoom(room){
  companionReactionQueue(COMPANION_REACTIONS.find(entry=>entry.room===room));
@@ -86,13 +92,30 @@ function companionReactionRoom(room){
 function companionReactionFlag(flag){
  companionReactionQueue(COMPANION_REACTIONS.find(entry=>entry.flag===flag));
 }
+function companionReactionInteraction(target){
+ if(!s||!started||paused||ended||s.script||s.flags.chaseActive||s.room==='chase')return;
+ if(s.room==='altar'&&['collapse','shatter','chase'].includes(s.altar?.phase))return;
+ const entry=COMPANION_ACTION_REACTIONS.find(e=>(!e.room||e.room===s.room)&&(e.scenery?target.startsWith('scenery_'):e.targets?.includes(target)));
+ if(!entry)return;
+ const record=s.companionReactions||(s.companionReactions={seen:[],pending:null});
+ const counts=record.actionCounts||(record.actionCounts={});
+ const key=entry.scenery?'prop:'+target:entry.id;
+ counts[key]=Math.min(99,(Number(counts[key])||0)+1);
+ if(counts[key]<(entry.attempts||2))return;
+ if(entry.requiresFlag&&!s.flags[entry.requiresFlag])return;
+ if(entry.blockedBy?.some(flag=>s.flags[flag]))return;
+ companionReactionQueue(entry);
+}
 function maybeCompanionReaction(){
  if(!s||!started||paused||ended||s.script||s.flags.chaseActive||s.room==='chase')return false;
  if(s.room==='altar'&&['collapse','shatter','chase'].includes(s.altar?.phase))return false;
  const record=s.companionReactions;
- if(!record?.pending)return false;
+ if(!record)return false;
+ if(!Array.isArray(record.pendingQueue))record.pendingQueue=[];
+ if(!record.pending)record.pending=record.pendingQueue.shift()||null;
+ if(!record.pending)return false;
  const entry=COMPANION_REACTIONS_BY_ID.get(record.pending);
- record.pending=null;
+ record.pending=record.pendingQueue.shift()||null;
  if(!entry||!entry.lines.some(([person])=>s.party.includes(person))){autoSave();return false}
  autoSave();
  run('ambientCompanion_'+entry.id);

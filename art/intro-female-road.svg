@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 768">
+<defs>
+ <linearGradient id="sky" x2=".15" y2="1"><stop stop-color="#080f18"/><stop offset=".58" stop-color="#28343e"/><stop offset="1" stop-color="#4e514a"/></linearGradient>
+ <linearGradient id="road" x2=".2" y2="1"><stop stop-color="#1b252b"/><stop offset=".5" stop-color="#363c3c"/><stop offset="1" stop-color="#171b22"/></linearGradient>
+ <linearGradient id="steel" x2="1" y2="1"><stop stop-color="#11171e"/><stop offset=".55" stop-color="#4b5354"/><stop offset="1" stop-color="#171b22"/></linearGradient>
+ <linearGradient id="coat" x2=".7" y2="1"><stop stop-color="#8b786b"/><stop offset=".4" stop-color="#4a4240"/><stop offset="1" stop-color="#211f24"/></linearGradient>
+ <linearGradient id="skin" x2=".5" y2="1"><stop stop-color="#d4bbab"/><stop offset=".6" stop-color="#b28f82"/><stop offset="1" stop-color="#6f5555"/></linearGradient>
+ <radialGradient id="headlamp"><stop stop-color="#ffe0a3" stop-opacity=".75"/><stop offset=".2" stop-color="#e1b17d" stop-opacity=".34"/><stop offset="1" stop-color="#b18b75" stop-opacity="0"/></radialGradient>
+ <radialGradient id="fog"><stop stop-color="#a9b3b5" stop-opacity=".28"/><stop offset="1" stop-color="#aab5b8" stop-opacity="0"/></radialGradient>
+ <radialGradient id="vignette"><stop offset=".52" stop-color="#080e15" stop-opacity="0"/><stop offset="1" stop-color="#080b11" stop-opacity=".83"/></radialGradient>
+ <filter id="blur"><feGaussianBlur stdDeviation="12"/></filter>
+ <filter id="grain"><feTurbulence type="fractalNoise" baseFrequency=".45" numOctaves="3" seed="11" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope=".075"/></feComponentTransfer></filter>
+ <pattern id="rain" width="103" height="107" patternUnits="userSpaceOnUse"><path d="M8 8l-12 34 M37 75l-9 27 M91 8l-10 30 M66 43l-8 27" stroke="#d4e0de" opacity=".21" stroke-width="1.6"/></pattern>
+</defs>
+<rect width="1280" height="768" fill="url(#sky)"/>
+<path d="M0 330Q120 295 212 325T380 304T572 317T763 296T990 319T1280 278V768H0Z" fill="#182227"/>
+<g fill="#10181d" stroke="#1d282a" stroke-width="3">
+<path d="M10 380V92m0 135-33-62m33 19 73-110M96 369V146m0 89-63-72m63 21 49-78M185 366V86m0 127-65-84m65 110 70-118M1088 374V90m0 165-42-76m42 26 85-135M1214 361V100m0 132-49-52m49 44 67-88"/>
+</g>
+<g fill="#1b2c2b"><path d="M0 280l55-115 59 118zm70 30 77-154 70 158zm175-8 61-151 80 151zm820 7 75-168 83 168zm108 28 68-199 75 199z"/></g>
+<path d="M0 422C344 384 760 388 1280 310V768H0Z" fill="url(#road)"/>
+<path d="M0 480C393 425 828 436 1280 365" fill="none" stroke="#7a7970" stroke-opacity=".3" stroke-width="11"/>
+<path d="M650 596Q916 458 1280 468" fill="none" stroke="#99978a" stroke-opacity=".19" stroke-width="5" stroke-dasharray="56 46"/>
+<path d="M0 599C400 508 816 572 1280 518v250H0Z" fill="#101a1e" opacity=".2"/>
+<!-- wrecked car, distorted metal and fractured windshield -->
+<path d="M-60 248Q55 178 212 193L436 230Q530 262 567 371L539 549 424 585H-60Z" fill="#10171d" stroke="#616563" stroke-width="10"/>
+<path d="M17 253Q153 206 229 240L405 257Q447 274 467 324L426 404 14 406Z" fill="#3c4548" stroke="#121a23" stroke-width="12"/>
+<path d="M51 268L218 252 326 280 398 367 41 370Z" fill="#52606a" opacity=".55"/>
+<path d="M226 259l-45 55 108 38-76-18 82-51M160 269l-72 76 106-23-34 46M266 288l67 58-12-72" stroke="#b8c8c7" stroke-width="3" stroke-opacity=".88" fill="none"/>
+<path d="M-14 425l409 10 73 27-13 70-100 26-375-26Z" fill="url(#steel)" stroke="#141a20" stroke-width="12"/>
+<path d="M396 449L518 431l-28 58-101 37Z" fill="#414b4c" stroke="#181d22" stroke-width="8"/>
+<path d="M-28 523H443L418 558-35 568Z" fill="#1e2729"/>
+<ellipse cx="527" cy="475" rx="212" ry="180" fill="url(#headlamp)"/>
+<path d="M484 465l253-124-169 180Z" fill="#e7bb80" opacity=".08"/>
+<!-- female protagonist: short rain-soaked bob and recognisable coat silhouette -->
+<path d="M93 768Q47 650 101 557Q132 500 174 483L283 474Q361 501 394 557L459 768Z" fill="url(#coat)" stroke="#201b24" stroke-width="13"/>
+<path d="M109 742q40-122 97-162l-35-60M288 506q60 86 86 225" stroke="#b1a093" stroke-width="8" fill="none" opacity=".35"/>
+<path d="M171 496Q143 440 155 374Q161 283 225 251Q327 213 377 295Q412 351 381 440L340 479Q289 513 221 495Z" fill="#201d25" stroke="#100e15" stroke-width="13"/>
+<path d="M219 295Q250 260 305 285Q367 314 362 375Q357 421 325 454L265 476Q213 456 197 412Q187 338 219 295Z" fill="url(#skin)" stroke="#4a3434" stroke-width="5"/>
+<path d="M210 317Q230 254 303 262Q374 264 392 335Q371 330 350 310Q345 359 324 375Q287 369 276 321Q246 358 211 374L187 395Q166 342 210 317Z" fill="#24202a"/>
+<path d="M170 387Q168 444 204 476L238 503Q176 511 147 466Q129 416 170 387Z" fill="#2a232b"/>
+<path d="M307 378Q334 378 349 362" stroke="#3c272b" stroke-width="5" fill="none"/><path d="M307 383q20-8 35-4" stroke="#e3d6c9" stroke-width="2" fill="none"/>
+<path d="M311 423q15 7 29-2" fill="none" stroke="#785151" stroke-width="4"/>
+<path d="M197 484L235 513 276 498 287 543 250 575 197 536Z" fill="#b7aaa2" stroke="#655457" stroke-width="5"/>
+<path d="M226 546L245 566l-11 49" stroke="#604b4c" stroke-width="6" fill="none"/>
+<path d="M138 565Q167 594 161 680L111 768M326 556Q378 605 393 768" stroke="#272126" stroke-width="12" fill="none"/>
+<path d="M184 662q33-10 56 18l-29 88H143Z" fill="#ad998f" opacity=".26"/>
+<!-- rain, reflected light, edge grain -->
+<ellipse cx="965" cy="540" rx="399" ry="130" fill="url(#fog)"/>
+<ellipse cx="1156" cy="355" rx="240" ry="150" fill="url(#fog)"/>
+<path d="M512 590l286-34M631 648l310-44M468 713l434-29M970 596l254-53" stroke="#bbbcaf" stroke-width="4" opacity=".23"/>
+<rect width="1280" height="768" fill="url(#rain)"/>
+<rect width="1280" height="768" fill="url(#vignette)"/>
+<rect width="1280" height="768" filter="url(#grain)" opacity=".3"/>
+</svg>

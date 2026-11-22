@@ -25,7 +25,15 @@ function drawRemasterSprite(kind,x,y,face='down'){
    (kind==='dalsu'&&s?.room==='loop'&&!s?.script);
  const step=active?Math.floor(tick*7+(x+y)*.013)%2:0;
  const rise=active?step:0;
- const rr=(a,b,w,h,color)=>{cx.fillStyle=color;cx.fillRect(Math.round(a),Math.round(b),Math.round(w),Math.round(h));};
+ // Snap every resized contour to the same integer 2px display grid.
+ // The existing cast stands around 82px; only Dalsu is deliberately ~10px taller.
+ const ratio=kind==='dalsu'?.89:.78;
+ const rr=(a,b,w,h,color)=>{
+  const x0=Math.round(a*ratio),y0=Math.round(b*ratio);
+  const x1=Math.round((a+w)*ratio),y1=Math.round((b+h)*ratio);
+  cx.fillStyle=color;
+  cx.fillRect(x0,y0,Math.max(1,x1-x0),Math.max(1,y1-y0));
+ };
  const shade=(a,b,w,h)=>rr(a,b,w,h,p.deep);
  const front=()=>!back;
  cx.save();

@@ -23,6 +23,7 @@
 ```sh
 node tests/map-integrity.test.js
 node tests/story-continuity-regression.test.js
+node tests/ending-route-simulation.test.js
 node tests/pursuit-integrity.test.js
 node tests/companion-relationships.test.js
 node tests/companion-banter.test.js

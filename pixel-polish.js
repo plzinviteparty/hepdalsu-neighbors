@@ -33,6 +33,7 @@
 })();
 
 function drawPatient05Pixel(x,y,face='down'){
+ if(typeof drawRemasterSprite==='function'&&drawRemasterSprite('patient05',x,y,face))return;
   shadow(x,y,31);
   cx.save();
   cx.translate(Math.round(x/2)*2,Math.round(y/2)*2);

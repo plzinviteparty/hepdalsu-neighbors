@@ -24,6 +24,7 @@
 node tests/map-integrity.test.js
 node tests/story-continuity-regression.test.js
 node tests/ending-route-simulation.test.js
+node tests/visual-remaster.test.js
 node tests/pursuit-integrity.test.js
 node tests/companion-relationships.test.js
 node tests/companion-banter.test.js
@@ -41,3 +42,10 @@ node tests/rescue-reactions.test.js
 - 첫 추격전을 통과해 지하 비상 대피실에 도달하면 **왕복 점검 통로**가 열린다. 순환 복도 쪽 통로는 그 전에는 접근할 수 없다.
 - 병동 기록을 놓친 경우 05번 이관대장 대조가 불가능하므로 이 통로를 통해 병동으로 돌아가야 한다. 최종 출입구에서도 **대피실로 돌아가기**를 선택할 수 있다.
 - 미확보 증거가 있어도 일반 탈출 엔딩은 선택할 수 있으며, 완전한 사건 재구성과 구출 엔딩을 위해서는 필요한 자료를 찾아야 한다.
+
+## 그래픽 리마스터 1차
+- 서정윤, 허달수, 시설 경비원은 `visual-remaster.js`에서 격자 기반 4방향 스프라이트로 그리며, 누끼 이미지에 의존하지 않습니다. 경비원·서정윤은 약 82px 기준, 허달수는 약 90px 기준입니다.
+- 인트로(단발 여성 탐정), 허달수 조우, 오은지 취재 사진은 저장소 `art/`의 독립 SVG 일러스트를 불러옵니다. **이 그림은 생성된 PNG의 단순 삽입본이 아니라 실제 게임을 위해 별도 구성한 벡터 리소스입니다.**
+- 인트로·조우 삽화는 저해상도 게임 캔버스가 아닌 DOM 화면 레이어에 표시하고, 상호작용 라벨도 HTML 텍스트로 표시합니다.
+- 05번 관찰병실에는 관찰창·번호판·의료 싱크대·환기구를 추가했습니다. 방의 이동 가능 영역과 환자/기록함 접근성이 유지되도록 검증했습니다.
+- **브라우저 실제 시각 QA는 아직 미완료입니다.** GPU 렌더링, 이미지 로드 실패, 화면별 도트 톤, 인물 표정·애니메이션은 플레이하면서 추가 확인해야 합니다.

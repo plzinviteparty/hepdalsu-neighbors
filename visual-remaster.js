@@ -27,7 +27,7 @@ function drawRemasterSprite(kind,x,y,face='down'){
  const rise=active?step:0;
  // Snap every resized contour to the same integer 2px display grid.
  // The existing cast stands around 82px; only Dalsu is deliberately ~10px taller.
- const ratio=kind==='dalsu'?.89:.78;
+ const ratio=kind==='dalsu'?.89:kind==='patient05'?.89:.78;
  const rr=(a,b,w,h,color)=>{
   const x0=Math.round(a*ratio),y0=Math.round(b*ratio);
   const x1=Math.round((a+w)*ratio),y1=Math.round((b+h)*ratio);

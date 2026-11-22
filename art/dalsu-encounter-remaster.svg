@@ -1,0 +1,78 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1280 768">
+<defs>
+<linearGradient id="bg" x1=".1" y1="0" x2=".8" y2="1"><stop stop-color="#17141a"/><stop offset=".48" stop-color="#2e2827"/><stop offset="1" stop-color="#070b10"/></linearGradient>
+<radialGradient id="spot" cx=".55" cy=".22" r=".78"><stop stop-color="#c49d72" stop-opacity=".28"/><stop offset=".7" stop-color="#8f644f" stop-opacity=".04"/><stop offset="1" stop-color="#111017" stop-opacity="0"/></radialGradient>
+<linearGradient id="jacket" x1="0" y1="0" x2=".8" y2="1"><stop stop-color="#a05b4d"/><stop offset=".26" stop-color="#643633"/><stop offset=".6" stop-color="#45272c"/><stop offset="1" stop-color="#21191e"/></linearGradient>
+<linearGradient id="waistcoat" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#ba9060"/><stop offset=".37" stop-color="#65503e"/><stop offset="1" stop-color="#342925"/></linearGradient>
+<linearGradient id="skin" x1="0" y1="0" x2=".85" y2="1"><stop stop-color="#8a665b"/><stop offset=".26" stop-color="#d4b4a0"/><stop offset=".56" stop-color="#b98c7c"/><stop offset="1" stop-color="#5e4644"/></linearGradient>
+<linearGradient id="hair" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#827267"/><stop offset=".35" stop-color="#4b3d3b"/><stop offset="1" stop-color="#201d24"/></linearGradient>
+<radialGradient id="vignette"><stop offset=".4" stop-color="#111018" stop-opacity="0"/><stop offset="1" stop-color="#090912" stop-opacity=".96"/></radialGradient>
+<filter id="noise"><feTurbulence type="fractalNoise" baseFrequency=".27" numOctaves="3" seed="5"/><feColorMatrix type="saturate" values="0"/><feComponentTransfer><feFuncA type="linear" slope=".1"/></feComponentTransfer></filter>
+<filter id="glow"><feGaussianBlur stdDeviation="18"/></filter>
+<pattern id="fabric" width="55" height="69" patternUnits="userSpaceOnUse"><path d="M2 6q25 5 22 28T9 65M43 8q-19 22-9 33t12 24" fill="none" stroke="#c39e73" opacity=".12" stroke-width="2"/></pattern>
+</defs>
+<rect width="1280" height="768" fill="url(#bg)"/>
+<path d="M0 0h1280v768H0z" fill="url(#spot)"/>
+<!-- corridor depth and a faded cult banner -->
+<path d="M0 0h142l212 768H0zM1130 0h150v768H947z" fill="#121319" opacity=".74"/>
+<path d="M140 0v768M1135 0v768M0 148h1280M0 645h1280" fill="none" stroke="#76695f" stroke-width="15" opacity=".22"/>
+<path d="M95 140L278 112 301 493 117 515Z" fill="#4c2529" stroke="#2a1d24" stroke-width="11"/>
+<path d="M145 173l91-18 24 295-120 18z" fill="#702d32" opacity=".45"/>
+<circle cx="197" cy="294" r="73" fill="none" stroke="#c28d55" stroke-width="5" opacity=".51"/>
+<circle cx="197" cy="294" r="32" fill="#0d1219" opacity=".75"/>
+<path d="M197 197v36m0 123v36m-96-98h37m119 0h38M129 224l27 27m83 83 27 27m0-137-27 27m-83 83-27 27" stroke="#b88a50" stroke-width="8" opacity=".47"/>
+<path d="M308 0v768M1024 0v768M320 600h700" stroke="#c5b595" stroke-opacity=".15" stroke-width="12"/>
+<ellipse cx="665" cy="143" rx="280" ry="170" fill="#e5d5a5" opacity=".07" filter="url(#glow)"/>
+<path d="M468 36h438l-51 28H515Z" fill="#444445"/>
+<path d="M514 62h344v28H514z" fill="#ddd0b0" opacity=".55"/>
+<path d="M514 73h344v11H514z" fill="#fff0ba" opacity=".75" filter="url(#glow)"/>
+<!-- Dalsu coat; forceful shoulders, wide lapels -->
+<path d="M344 768Q355 534 412 451Q443 412 551 394L777 397Q930 418 990 517Q1040 620 1068 768Z" fill="#1c161a" stroke="#1b141a" stroke-width="28"/>
+<path d="M362 768Q381 538 448 449L582 399Q687 438 771 393L908 442Q987 549 1016 768Z" fill="url(#jacket)" stroke="#3a2224" stroke-width="9"/>
+<path d="M445 444q-83 119-68 324M899 443q99 140 114 325" fill="none" stroke="#c1735a" stroke-width="15" opacity=".43"/>
+<path d="M510 423L577 405 679 496 780 398l82 46-126 324H619Z" fill="#2f2121"/>
+<path d="M571 410L685 508 772 405 760 768H604Z" fill="url(#waistcoat)" stroke="#322421" stroke-width="9"/>
+<path d="M594 478l155 3m-150 59 156-8m-155 66 147-6m-141 59h139" stroke="#b69768" stroke-opacity=".22" stroke-width="9"/>
+<path d="M618 476l23 14-15 11m91 1 25-11-12-16m-101 70 18 11-14 10m80 4 21-16-15-12m-75 89 23 9-12 13m59 0 18-16-16-5" stroke="#d1ad71" stroke-width="6" fill="none" opacity=".55"/>
+<path d="M600 417L663 486 683 556l-15 212H615L521 521Z" fill="#f1d8b9" opacity=".68"/>
+<path d="M753 417L693 487l-7 70 17 211h78l83-264Z" fill="#d7bc9f" opacity=".62"/>
+<path d="M577 405l106 109-59 66-128-132Z" fill="url(#jacket)" stroke="#ac6b56" stroke-width="8"/>
+<path d="M775 403l-92 110 65 69 127-126Z" fill="url(#jacket)" stroke="#9a6251" stroke-width="8"/>
+<path d="M574 417l85 90-43 33-102-89m274-34-83 91 41 31 108-84" stroke="#e1a27a" stroke-opacity=".29" stroke-width="5" fill="none"/>
+<circle cx="790" cy="496" r="20" fill="#bc9660" stroke="#493c2c" stroke-width="9"/>
+<circle cx="790" cy="496" r="7" fill="#3b2b29"/>
+<path d="M790 474v43m-20-21h40m-33-13 26 26m0-26-26 26" stroke="#f1c283" stroke-width="2.5" opacity=".72"/>
+<path d="M393 750Q389 545 454 491L479 768m483-18q-18-193-84-259l-18 277" fill="none" stroke="#2d2025" stroke-width="28"/>
+<path d="M449 509q-41 72-43 210m473-211q64 95 70 228" stroke="#b26d5c" stroke-opacity=".35" stroke-width="11" fill="none"/>
+<path d="M472 590l74 22-19 68-83-18zm396 0 78-14 17 70-74 18z" fill="#633b38" stroke="#a16a56" stroke-width="5"/>
+<!-- neck and ageing face -->
+<path d="M624 361l-17 77 60 66 62-69-19-84" fill="url(#skin)" stroke="#553d3b" stroke-width="9"/>
+<path d="M635 393l31 64m34-73-24 72" stroke="#7f5b55" stroke-width="8" opacity=".6"/>
+<path d="M552 197Q570 100 668 97Q774 92 813 190L806 299Q789 396 720 416Q645 444 590 387Q548 347 552 197Z" fill="url(#skin)" stroke="#624844" stroke-width="13"/>
+<path d="M566 279Q529 257 539 316Q542 351 573 360M797 289q44-24 37 28-6 34-39 36" fill="url(#skin)" stroke="#694e49" stroke-width="10"/>
+<!-- swept graying hair -->
+<path d="M545 249Q523 172 562 119Q572 70 636 70Q707 34 775 100Q839 119 835 194l-28 62q-9-49-32-91-44 13-82-16-38 44-99 32-28 16-43 68Z" fill="url(#hair)" stroke="#221e25" stroke-width="14"/>
+<path d="M553 208Q558 111 621 105q38-34 87-25m-123 65q54-70 118-55m-98 80q68-91 132-62m-84 61q59-55 115-24m-46-33q83-12 107 87" stroke="#ae9684" stroke-width="8" opacity=".43" fill="none"/>
+<path d="M546 233q-14-78 25-114m223 51q30 55 16 108" stroke="#27212a" stroke-width="17" fill="none"/>
+<!-- facial planes, narrow half-lidded eyes -->
+<path d="M572 237q55-33 107-12m38-3q48-23 83 8" stroke="#6d4b46" stroke-width="11" opacity=".85" fill="none"/>
+<path d="M584 258Q616 248 660 257q-28 19-65 10Z" fill="#3b3031"/>
+<path d="M723 253q34-18 67 0-28 18-65 13Z" fill="#3b3031"/>
+<path d="M599 256q24 6 42 0M738 254q17 5 33-2" stroke="#d5b7a3" stroke-width="5" opacity=".79" fill="none"/>
+<path d="M623 274q20 6 38-3m64-2q22 8 43-3" stroke="#8c685d" stroke-width="4" fill="none"/>
+<path d="M694 252q-5 47 12 74l-17 7" stroke="#825d54" stroke-width="8" fill="none"/>
+<path d="M588 320q26 22 60 24m104-7q29-8 43-22" stroke="#8d6c5e" stroke-width="5" opacity=".55" fill="none"/>
+<path d="M640 357q47 17 100-2" fill="none" stroke="#6c4545" stroke-width="7"/>
+<path d="M648 359q46 8 83-3" fill="none" stroke="#e2b7a4" stroke-width="3"/>
+<path d="M635 371q38 31 104-8" fill="none" stroke="#80625c" stroke-width="4" opacity=".6"/>
+<path d="M584 280l18 69m187-71-18 73M654 305l-6 24m95-28 8 26" stroke="#8f655d" stroke-width="4" opacity=".63"/>
+<path d="M615 392q25 17 52 18m46-7q27-5 45-23" stroke="#614746" stroke-width="4" fill="none"/>
+<!-- short-haired female protagonist, back-of-head foreground at left, not a male silhouette -->
+<path d="M-70 768Q-15 603 90 540L258 522Q369 588 397 768Z" fill="#20232b" stroke="#13151d" stroke-width="16"/>
+<path d="M69 535Q30 456 63 347Q89 272 183 267Q274 275 298 373Q304 476 266 536Z" fill="#27242d" stroke="#15141c" stroke-width="14"/>
+<path d="M72 415Q90 308 168 295Q237 280 285 370q-55-51-118-30-30 45-68 90Z" fill="#4a3b41"/>
+<path d="M83 500Q135 537 218 524" fill="none" stroke="#5a4649" stroke-width="14"/>
+<path d="M157 540L237 626 286 768" fill="none" stroke="#6e605a" stroke-width="12" opacity=".42"/>
+<rect width="1280" height="768" fill="url(#vignette)"/>
+<rect width="1280" height="768" filter="url(#noise)" opacity=".22"/>
+</svg>

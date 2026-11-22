@@ -215,3 +215,8 @@
 }
 .cinematicArtwork[hidden]{display:none}
 #notice,#mission,#chaseHud{z-index:5}
+
+/* The witness and rope must remain distinguishable in every photo fragment.
+   Only in-game character sprites use nearest-neighbour pixel scaling. */
+#choices .photoRepair{width:min(100%,420px);gap:2px}
+#choices .photoRepair .photoFragment{image-rendering:auto;background-color:#484c49;box-shadow:none}

@@ -3,6 +3,8 @@
 // Uses the same 2x logical canvas grid as existing sprites (82px character height).
 (()=>{
   const m=MAPS.annex05;
+  // The ordinary potted plant belongs to the old room layout, not a monitored ward.
+  m.props=m.props.filter(([kind])=>kind!=='plant');
   m.props.push(
     ['caseCabinet',24,10],
     ['caseCart',10,9],
@@ -11,7 +13,11 @@
     ['caseNotice',6,4],
     ['caseWaste',24,16],
     ['caseCeilingLight',17,3],
-    ['caseDivider',22,13]
+    ['caseDivider',22,13],
+    ['caseObservationGlass',13,4],
+    ['caseRoomNumber',5,4],
+    ['caseSink',25,16],
+    ['caseWallVent',24,4]
   );
   m.mission='05번 병실을 조사하고 이관 기록과 환자의 진술을 확인하자';
   // Three key quest objects use physical furniture instead of floating book icons.
@@ -161,6 +167,40 @@ function drawAnnexProp(kind,x,y){
       p(-30,-66,60,45,dark);p(-27,-63,54,39,'#d1c5aa');p(-23,-59,46,4,'#887e76');
       for(let i=0;i<5;i++){p(-22,-50+i*5,42-(i%3)*8,2,'#847e76')}
       p(-27,-66,10,4,'#9e9c8b');p(19,-25,9,3,'#b19a89');break;
+    case 'caseObservationGlass':{
+      // Viewing window faces the monitored bed, with steel frame and
+      // fluorescent reflections. Align to the original 2px pixel grid.
+      p(-57,-70,114,51,dark);p(-54,-67,108,45,'#778a87');
+      p(-51,-64,102,39,'#222f37');p(-48,-62,97,35,'#36474d');
+      p(-42,-61,30,32,'#4c6262');p(-34,-57,11,25,'#607474');
+      p(13,-60,22,31,'#566967');p(39,-58,5,28,'#839a90');
+      p(-57,-47,114,4,'#2e4046');p(-4,-65,5,40,'#233037');
+      p(-59,-69,118,4,'#92a19a');p(-60,-23,120,5,'#253641');
+      for(let i=0;i<4;i++){p(-56+i*35,-69,4,3,'#222c34');p(-57+i*35,-23,4,4,'#222c34')}
+      break;
+    }
+    case 'caseRoomNumber':{
+      p(-18,-53,36,39,'#27333b');p(-16,-51,32,35,'#9b9c8d');
+      p(-14,-49,28,31,'#444e53');p(-11,-47,23,27,'#b9b5a1');
+      p(-9,-43,4,19,'#353d42');p(-9,-43,15,4,'#353d42');
+      p(-9,-34,14,4,'#353d42');p(3,-34,4,10,'#353d42');
+      p(-9,-24,16,4,'#353d42');p(9,-49,4,4,'#8b6f60');
+      break;
+    }
+    case 'caseSink':{
+      p(-22,-37,44,7,'#3b4950');p(-18,-40,36,8,'#9ba7a0');
+      p(-17,-34,34,16,'#d5d7c9');p(-11,-31,22,8,'#aeb9b1');
+      p(-18,-18,36,5,'#6a7d7e');p(-16,-13,32,13,'#5a6b70');
+      p(-11,-10,23,3,'#83918c');p(-2,-43,4,10,'#617a80');
+      p(-5,-45,10,3,'#bec4b7');p(-19,-3,38,4,'#34434a');
+      break;
+    }
+    case 'caseWallVent':{
+      p(-26,-57,52,30,'#26343c');p(-23,-54,46,24,'#8b9893');
+      p(-20,-51,40,19,'#3b4b50');for(let i=0;i<5;i++)p(-18,-49+i*4,36,2,'#9bab9d');
+      p(-24,-57,7,4,'#b4afa1');p(18,-30,5,4,'#43545a');
+      break;
+    }
     case 'caseWaste':
 p(-11,-31,22,31,dark);p(-10,-28,20,27,'#64757a');
       p(-13,-33,26,6,edge);p(-7,-23,14,12,'#b09d83');p(-4,-21,8,8,'#746a66');

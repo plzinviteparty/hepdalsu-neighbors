@@ -154,6 +154,37 @@ function catSprite(x,y,big=false){if(drawRasterSprite(big?'monsterHachi':'cat',x
 function alien(x,y,nurse=false){shadow(x,y,34);const a=nurse?'#a4c8c6':'#a091b9',b=nurse?'#6d9fa9':'#726780';rect(x-13,y-32,26,22,a);rect(x-9,y-36,18,7,a);rect(x-9,y-12,18,12,b);for(let i=0;i<4;i++){rect(x-17+i*9,y-3,5,7,b);rect(x-19+i*10,y+3,7,4,b)}rect(x-8,y-27,5,6,'#2b3347');rect(x+4,y-27,5,6,'#2b3347');rect(x-6,y-26,2,3,'#dce3d0');rect(x+6,y-26,2,3,'#dce3d0');rect(x-4,y-16,8,2,'#578086');if(nurse){rect(x-14,y-37,28,7,'#e2e0d2');rect(x-2,y-37,4,7,'#bf7788');rect(x-6,y-4,12,3,'#d6a16b');rect(x+2,y-12,3,11,'#dec7a7')}}
 function prop(kind,x,y,anim=0){if(kind==='dalsuShadow')return drawRasterSprite('dalsu',x,y,'down');if(kind.startsWith('crawler'))return drawCrawlerFrame(x,y,Number(kind.slice(7)),'down',false);if(kind==='robe')return drawRasterSprite('robe',x,y,'down');if(kind.startsWith('stoneHead'))return stoneHead(x,y,Number(kind.slice(9)),s.altar?.phase==='chase');if(drawDormitoryArt(kind,x,y))return;if(drawRitualReadability(kind,x,y))return;if(kind.startsWith('altar'))return altarProp(kind,x,y);if(drawFacilityArt(kind,x,y,anim))return;if(drawReadableHallProp(kind,x,y))return;if(drawObservationProp(kind,x,y,anim))return;if(drawAnnexProp(kind,x,y))return;if(drawRasterProp(kind,x,y))return;if(referenceSprite(kind==='bigcat'?'monsterHachi':kind==='rabbit'?'usagi':kind==='smallcat'?'chiikawa':kind,x,y))return;shadow(x,y,kind==='table'?90:32);if(['man','kim','ode','doctor','patient05'].includes(kind))return character(x,y,kind==='doctor'?'kim':kind);if(kind==='cat'||kind==='smallcat')return catSprite(x,y);if(kind==='bigcat')return catSprite(x,y,true);if(kind==='nurse'||kind==='alien')return alien(x,y,kind==='nurse');if(kind==='door'){rect(x-20,y-57,40,61,'#a18584');rect(x-16,y-54,32,55,'#211c2e');rect(x-13,y-49,26,48,'#60475d');rect(x-9,y-45,18,16,'#765369');rect(x-9,y-25,18,18,'#503c52');rect(x+8,y-24,4,5,'#d2b681');rect(x-23,y+1,46,5,'#b6968e')}else if(kind==='table'){rect(x-34,y-17,6,22,'#5c3d48');rect(x+28,y-17,6,22,'#5c3d48');rect(x-48,y-36,96,24,'#89626d');rect(x-50,y-38,100,17,'#d1a6a3');rect(x-46,y-21,92,10,'#ab8090');rect(x-41,y-35,82,3,'#e3c5b3');for(let i of [-30,0,30]){rect(x+i-8,y-34,16,7,'#eee0c8');rect(x+i-4,y-32,8,3,'#b58a9a')}}else if(kind==='chair'){rect(x-12,y-44,24,22,'#423747');rect(x-9,y-41,18,16,'#967454');rect(x-12,y-22,4,28,'#4b3b42');rect(x+8,y-22,4,28,'#4b3b42');rect(x-14,y-18,28,10,'#ab8960');rect(x-10,y-8,4,15,'#6b5146');rect(x+7,y-8,4,15,'#6b5146');rect(x-10,y-17,20,3,'#c2a074')}else if(kind==='bed'){rect(x-37,y-53,74,59,'#a7b6b8');rect(x-32,y-48,64,16,'#e0dfce');rect(x-32,y-28,64,30,'#7f9a9c');rect(x-31,y-28,62,4,'#b3c4bc');rect(x-34,y+3,6,7,'#4a4b5e');rect(x+28,y+3,6,7,'#4a4b5e')}else if(kind==='desk'){rect(x-34,y-25,68,22,'#8c6b5d');rect(x-32,y-25,64,4,'#b19077');rect(x-30,y-3,6,12,'#564454');rect(x+24,y-3,6,12,'#564454');rect(x+5,y-16,21,10,'#73564e')}else if(kind==='stage'){rect(x-90,y-23,180,25,'#6f4b66');rect(x-86,y-29,172,7,'#b98e87');rect(x-75,y-17,150,3,'#9b7180');rect(x-18,y+2,36,6,'#846170');rect(x-25,y+8,50,6,'#ac8881')}else if(kind==='piano'){rect(x-40,y-45,80,35,'#262434');rect(x-37,y-43,74,5,'#51445b');rect(x-42,y-18,84,10,'#e1d4bf');for(let i=-36;i<38;i+=8)rect(x+i,y-18,4,6,'#2b2636');rect(x-38,y-8,6,15,'#322638');rect(x+32,y-8,6,15,'#322638')}else if(kind==='plant'){rect(x-11,y-14,22,19,'#98745f');rect(x-14,y-16,28,6,'#b38c6c');rect(x-2,y-42,4,26,'#4e6e62');for(let i=0;i<3;i++){rect(x-15+i*6,y-39-i*5,15,7,'#67836b');rect(x+2,y-35+i*6,14,6,'#4b6b61')}}else if(kind==='mirror'){rect(x-22,y-55,44,55,'#b2927d');rect(x-16,y-49,32,43,'#737e92');rect(x-12,y-46,5,33,'#a5b5b9');rect(x-18,y+1,36,7,'#6a4b58')}else if(kind==='bone'){rect(x-9,y-7,18,5,'#f0ddbd');rect(x-11,y-9,5,9,'#e3cbb0');rect(x+7,y-9,5,9,'#e3cbb0')}else if(kind==='book'){rect(x-15,y-14,30,16,'#e1cfab');rect(x-1,y-13,2,14,'#a58c7b');for(let a=0;a<3;a++)rect(x-11,y-10+a*4,8,1,'#9e7b76');rect(x+4,y-10,7,3,'#c37c81')}else if(kind==='clock'){rect(x-18,y-42,36,37,'#ab8f79');rect(x-14,y-38,28,28,'#d9cbb1');rect(x-1,y-29,2,8,'#604a55');rect(x-1,y-23,8,2,'#604a55');rect(x-13,y-26,3,2,'#604a55');rect(x+10,y-26,3,2,'#604a55')}else if(kind==='sign'){rect(x-2,y-20,4,25,'#80684d');rect(x-34,y-48,68,29,'#d5c08b');rect(x-30,y-44,60,21,'#e2ce9b');for(let j=0;j<3;j++)rect(x-23,y-40+j*6,46-j*8,2,'#8d7555')}else if(kind==='crack'){rect(x-12,y-45,24,49,'#26202e');rect(x-16,y-45,6,22,'#c3af6e');rect(x+9,y-22,6,26,'#c3af6e');rect(x-5,y-35,3,28,'#151423')}else if(kind==='bubble'){rect(x-26,y-53,52,48,'#87b2bf');rect(x-20,y-59,40,6,'#b1d0ce');rect(x-31,y-43,6,26,'#b1d0ce');rect(x+25,y-43,6,26,'#537d9c');rect(x-22,y-17,44,17,'#537d9c');rect(x-14,y-49,10,5,'#d5e3d2');rect(x-21,y-39,5,11,'#c6dcd4');rect(x-4,y-3,8,8,'#86a9b0')}else if(kind==='bath'){rect(x-40,y-22,80,21,'#b7c6c3');rect(x-34,y-21,68,11,'#54848c');rect(x-32,y-2,7,11,'#707984');rect(x+25,y-2,7,11,'#707984')}else if(kind==='monitor'){rect(x-23,y-44,46,32,'#b0b6b3');rect(x-18,y-39,36,22,'#233b47');rect(x-14,y-28,12,2,'#80b59e');rect(x-2,y-33,2,11,'#80b59e');rect(x,y-24,14,2,'#80b59e');rect(x-3,y-12,6,11,'#6e7d85');rect(x-17,y-1,34,4,'#9da7a5')}else if(kind==='pen'){rect(x-3,y-25+Math.sin(anim*2)*2,5,24,'#dbbd86');rect(x-3,y-25,5,6,'#e6ddc7');rect(x-1,y-1,2,5,'#464052')}else if(kind==='pipe'){rect(x-9,y-42,18,48,'#758897');rect(x-6,y-42,4,48,'#a6bdba');rect(x-13,y-23,26,8,'#a3b1b1')}else if(kind==='ufo'){rect(x-38,y-45,76,26,'#768995');rect(x-24,y-53,48,12,'#91b0bc');rect(x-63,y-22,126,18,'#a9a9a8');rect(x-50,y-4,100,9,'#6f788a');for(let i=-42;i<50;i+=21)rect(x+i,y-15,8,5,'#d9ba81');rect(x+14,y-39,6,43,'#28283a');rect(x+20,y-32,13,5,'#28283a')}else if(kind==='rabbit'){rect(x-10,y-27,20,21,'#e4c98e');rect(x-8,y-51,6,26,'#e4c98e');rect(x+3,y-49,6,24,'#e4c98e');rect(x-8,y-44,3,14,'#bd9085');rect(x+3,y-42,3,13,'#bd9085');rect(x-5,y-18,2,3,'#55404b');rect(x+4,y-18,2,3,'#55404b');rect(x-8,y-6,16,11,'#d1b783')}else if(kind==='mark'){rect(x-10,y-8,20,3,s.flags.marked?'#f4e5b4':'#b3a77a');rect(x+5,y-12,3,11,s.flags.marked?'#f4e5b4':'#b3a77a')}else if(kind==='fireplace'){rect(x-31,y-40,62,43,'#a88a65');rect(x-23,y-30,46,33,'#3d3540');rect(x-14,y-16,28,17,'#bd845b');rect(x-7,y-23,14,20,'#e2b176')}else if(kind==='tank'){rect(x-34,y-57,68,60,'#869eaa');rect(x-29,y-52,58,49,'#507d91');rect(x-24,y-48,7,37,'#a6c3c7');rect(x-16,y-30,32,18,'#aa8d99');rect(x-11,y-35,23,6,'#c0a0a8');rect(x-8,y-29,3,14,'#806f84');rect(x+6,y-32,3,15,'#806f84');rect(x-38,y+3,76,10,'#526775');rect(x-29,y-62,58,6,'#bac6be')}else if(kind==='ghostcat'){rect(x-10,y-4,20,4,'#ccbb9b44')}}
 
+
+let cinematicArtwork=null,cinematicArtworkId=null;
+const CINEMATIC_ART={
+ introRoad:'art/intro-female-road.svg',
+ introMansion:'art/intro-female-mansion.svg',
+ encounter:'art/dalsu-encounter-remaster.svg'
+};
+function updateCinematicArtwork(){
+ let target=null;
+ if(s?.script==='intro'){
+  if(s.step<=4)target='introRoad';
+  else if(s.step<=7)target='introMansion';
+ }else if(s?.script==='dalsuEncounter'&&s.step>=6&&s.step<8){
+  target='encounter';
+ }
+ if(!cinematicArtwork){
+  cinematicArtwork=document.createElement('img');
+  cinematicArtwork.className='cinematicArtwork';
+  cinematicArtwork.alt='';
+  cinematicArtwork.draggable=false;
+  cinematicArtwork.setAttribute('aria-hidden','true');
+  const vp=document.querySelector('.viewport');
+  vp.insertBefore(cinematicArtwork,document.getElementById('notice'));
+ }
+ if(cinematicArtworkId!==target){
+  cinematicArtworkId=target;
+  if(target)cinematicArtwork.src=CINEMATIC_ART[target];
+ }
+ cinematicArtwork.hidden=!target;
+}
+
 let activeObjectLabel=null;
 function drawReadableObjectLabel(label,x,y){
  if(!activeObjectLabel){
@@ -173,7 +204,7 @@ function drawReadableObjectLabel(label,x,y){
  activeObjectLabel.hidden=false;
 }
 
-function drawScene(dt){if(activeObjectLabel)activeObjectLabel.hidden=true;if(s.script==='dalsuEncounter'&&s.step===8){rect(0,0,640,384,'#060609');return}
+function drawScene(dt){updateCinematicArtwork();if(activeObjectLabel)activeObjectLabel.hidden=true;if(s.script==='dalsuEncounter'&&s.step===8){rect(0,0,640,384,'#060609');return}
 if(s.script==='dalsuEncounter'&&s.step>=6&&s.step<8){
  const im=rasterImages[RASTER_MANIFEST.props.dalsuEncounterArt];
  if(im&&im.naturalWidth){const scale=Math.max(640/im.naturalWidth,384/im.naturalHeight);const w=im.naturalWidth*scale,h=im.naturalHeight*scale;cx.save();cx.imageSmoothingEnabled=true;cx.imageSmoothingQuality='high';cx.drawImage(im,(640-w)/2,(384-h)/2,w,h);cx.restore();return}

@@ -157,9 +157,9 @@ function prop(kind,x,y,anim=0){if(kind==='dalsuShadow')return drawRasterSprite('
 
 let cinematicArtwork=null,cinematicArtworkId=null;
 const CINEMATIC_ART={
- introRoad:'art/intro-female-road.svg',
- introMansion:'art/intro-female-mansion.svg',
- encounter:'art/dalsu-encounter-remaster.svg'
+ introRoad:'art/intro-female-road-final.webp',
+ introMansion:'art/intro-female-mansion-final.webp',
+ encounter:'art/dalsu-encounter-final.webp'
 };
 function updateCinematicArtwork(){
  let target=null;

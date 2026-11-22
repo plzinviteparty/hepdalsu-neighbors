@@ -123,6 +123,7 @@ function tickLoopWatch(dt){
  }
 }
 function drawFacilityGuard(x,y,face='right'){
+ if(typeof drawAtlasSprite==='function'&&drawAtlasSprite('guard',x,y,face))return;
  if(typeof drawRemasterSprite==='function'&&drawRemasterSprite('guard',x,y,face))return;
  // A recognizably human worker, not the old supernatural robe sprite.
  const r=(a,b,w,h,color)=>rect(a,b,w,h,color);

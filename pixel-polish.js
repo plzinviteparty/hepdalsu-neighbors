@@ -39,6 +39,7 @@
 })();
 
 function drawPatient05Pixel(x,y,face='down'){
+ if(typeof drawAtlasSprite==='function'&&drawAtlasSprite('patient05',x,y,face))return;
  if(typeof drawRemasterSprite==='function'&&drawRemasterSprite('patient05',x,y,face))return;
   shadow(x,y,31);
   cx.save();

@@ -9,7 +9,39 @@ const rasterImages={},rasterErrors=[];
 let rasterLoaded=typeof Image==='undefined';
 const rasterPromise=typeof Image==='undefined'?Promise.resolve():Promise.all([...new Set([...Object.values(RASTER_MANIFEST.sprites).flatMap(Object.values),...Object.values(RASTER_MANIFEST.props),...Object.values(RASTER_MANIFEST.textures).flatMap(Object.values)])].map(src=>new Promise(resolve=>{const im=new Image();im.onload=()=>{rasterImages[src]=im;resolve()};im.onerror=()=>{rasterErrors.push(src);resolve()};im.src=src;}))).then(()=>{rasterLoaded=true});
 const SPRITE_HEIGHT={dalsu:82,robe:82,nasol:82,jubin:82,changwon:82,player:82,kim:82,man:94,ode:76,monsterHachi:142,hachi:53,usagi:66,chiikawa:53,alien:64,cat:36,briano:82,lemming:65};
+
+/* Each 96×112 PNG cell is a distinct frame, not a giant resized sheet.
+ * Rows: guard idle/walk, patient05 idle/walk, Dalsu idle/walk.
+ * Columns: down, left, right, up. All feet aligned at frame y=105.
+ */
+const CHARACTER_ATLAS_PATH='assets/character-atlas-v3.png?v=3';
+const CHARACTER_ATLAS_CELL={width:96,height:112,feetY:105};
+const CHARACTER_ATLAS_ROWS={guard:0,patient05:2,dalsu:4};
+const characterAtlasImage=typeof Image==='undefined'?null:new Image();
+if(characterAtlasImage)characterAtlasImage.src=CHARACTER_ATLAS_PATH;
+function drawAtlasSprite(kind,x,y,face='down'){
+ if(kind==='nurse')kind='guard';
+ const row=CHARACTER_ATLAS_ROWS[kind];
+ if(row===undefined||!characterAtlasImage||!characterAtlasImage.complete||characterAtlasImage.naturalWidth!==384||characterAtlasImage.naturalHeight!==672)return false;
+ const col=({down:0,left:1,right:2,up:3})[face]??0;
+ const walking=kind==='guard'
+  ? s?.room==='ward'||(s?.room==='loop'&&!s?.script)
+  : kind==='patient05'
+   ? !!s?.party?.includes('patient05')
+   : s?.room==='loop'&&!s?.script;
+ const frame=walking&&typeof frameTime==='number'?Math.floor(frameTime*5)%2:0;
+ const {width,height,feetY}=CHARACTER_ATLAS_CELL;
+ cx.save();
+ cx.imageSmoothingEnabled=false;
+ shadow(x,y,kind==='dalsu'?34:28);
+ cx.drawImage(characterAtlasImage,col*width,(row+frame)*height,width,height,
+  Math.round(x)-width/2,Math.round(y)-feetY,width,height);
+ cx.restore();
+ return true;
+}
+
 function drawRasterSprite(kind,x,y,face='down'){
+ if(['nurse','guard','dalsu','patient05'].includes(kind)&&drawAtlasSprite(kind,x,y,face))return true;
  if((kind==='nurse'||kind==='dalsu'||kind==='guard')&&typeof drawRemasterSprite==='function'&&drawRemasterSprite(kind==='nurse'?'guard':kind,x,y,face))return true;
  kind=({bigcat:'monsterHachi',smallcat:'chiikawa',rabbit:'usagi',nurse:'briano',doctor:'briano',alien:'lemming'})[kind]||kind;
  const frames=RASTER_MANIFEST.sprites[kind];if(!frames)return false;

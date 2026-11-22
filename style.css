@@ -205,12 +205,12 @@
 @media(max-width:650px){.objectLabel{font-size:12px;padding:5px 8px;max-width:210px}}
 
 
-/* Event illustrations bypass the low-resolution pixel canvas. These stay
-   vector-sharp, while interactive maps/sprites remain nearest-neighbour. */
+/* Event illustrations bypass the pixelated canvas. PNG/WebP artwork uses
+   high-resolution browser image sampling; map sprites stay nearest-neighbour. */
 .cinematicArtwork{
  position:absolute;inset:0;z-index:1;
  width:100%;height:100%;display:block;
- object-fit:cover;pointer-events:none;user-select:none;
+ object-fit:cover;image-rendering:auto;pointer-events:none;user-select:none;
  background:#11141b;
 }
 .cinematicArtwork[hidden]{display:none}

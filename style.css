@@ -184,3 +184,22 @@
 /* Duo and trio exchanges stay legible on narrow screens. */
 .menuActions .banterTopic{white-space:pre-line;text-align:left;flex:1 1 220px;min-width:0;line-height:1.55;padding:11px 14px}
 @media(max-width:560px){.menuActions .banterTopic{flex-basis:100%;min-height:48px;padding:11px 12px}}
+
+/* Display-space label: actual sharp Korean text, never rasterized into a
+   low-resolution canvas, with a readable backdrop and no pointer blocking. */
+.objectLabel{
+ position:absolute;z-index:4;pointer-events:none;
+ transform:translate(-50%,-100%);
+ max-width:min(92%,350px);width:max-content;
+ white-space:normal;overflow-wrap:break-word;
+ padding:7px 11px;
+ background:rgba(17,17,24,.94);
+ color:#f6e1ba;border:1px solid #ad8b63;
+ border-radius:3px;
+ box-shadow:0 3px 9px #07060baa,0 0 0 1px #19151d;
+ font:600 clamp(12px,1.1vw,15px)/1.45 system-ui,-apple-system,'Malgun Gothic',sans-serif;
+ letter-spacing:0;word-break:keep-all;text-align:center;
+ text-shadow:0 1px 1px #100d11;
+}
+.objectLabel[hidden]{display:none}
+@media(max-width:650px){.objectLabel{font-size:12px;padding:5px 8px;max-width:210px}}

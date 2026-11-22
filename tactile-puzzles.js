@@ -19,77 +19,10 @@
  locker.labels=['분류 코드','보관 번호 십의 자리','보관 번호 일의 자리'];
 })();
 
-let detectivePhotoImage=null;
-function makeDetectivePhoto(){
- if(detectivePhotoImage)return detectivePhotoImage;
- const canvas=document.createElement('canvas');canvas.width=144;canvas.height=144;
- const g=canvas.getContext('2d');if(!g)return null;
- g.imageSmoothingEnabled=false;
- const p=(x,y,w,h,col)=>{g.fillStyle=col;g.fillRect(x,y,w,h)};
- const dark='#181e22',mid='#303a3c',fog='#485459',edge='#7a8981',
-  moss='#53615a',fence='#252e31',blue='#85908c',skin='#ada292';
- p(0,0,144,144,'#333f44');
- for(let y=0;y<144;y+=2)for(let x=0;x<144;x+=2){
-  const k=(x*17+y*23+x*y*3)%17;
-  if(k<3)p(x,y,2,2,y<55?'#414e52':y<95?'#333f3f':'#41443c');
- }
- // Night sky, long courtyard wall and the gate seen behind the subject.
- p(0,0,144,20,dark);p(0,17,144,4,'#66746f');
- p(0,31,144,24,mid);p(0,32,144,3,'#77847f');
- for(let i=0;i<11;i++){let x=i*14+2;p(x,33,3,35,fence);p(x+1,33,1,34,'#6d7b76')}
- p(0,53,144,7,dark);p(0,57,144,3,'#69726a');
- p(0,64,144,80,'#3c4944');
- for(let i=0;i<46;i++){
-  let x=(i*29+17)%144,y=60+(i*13)%80;
-  p(x,y,3+(i%3),1,i%4===0?'#697064':'#293632');
- }
- // Crooked wooden yard gate / entrance frame.
- p(7,11,12,88,'#26282c');p(11,13,4,80,'#62615c');
- p(8,11,57,10,'#232b2c');p(11,13,50,3,'#8d9185');
- p(58,11,11,90,'#242c2d');p(60,16,3,82,'#6c7771');
- p(14,30,48,4,'#59645f');p(19,31,3,50,'#242e30');
- for(let i=0;i<4;i++){let x=27+i*8;p(x,29,2,45,'#263134')}
- // Thick tree trunk on the right; individual uneven bark and branches.
- p(106,7,22,127,'#262d2c');p(111,4,7,126,'#495047');
- p(120,9,4,115,'#626156');p(106,24,4,93,'#232a27');
- p(93,15,28,9,'#26332e');p(89,11,22,7,'#48524a');
- p(105,17,8,21,'#2a3530');p(100,6,7,11,'#2b3831');
- p(118,28,19,7,'#273530');p(132,24,12,6,'#46594a');
- for(let i=0;i<22;i++){
-  let x=106+(i*7)%21,y=12+(i*23)%112;
-  p(x,y,1+(i%3),6+(i%5),i%2?'#171f20':'#777368');
- }
- // Restrained adult: coat silhouette, hands against trunk, rope and head.
- p(75,65,17,39,dark);p(77,69,14,8,'#4a5553');
- p(70,77,26,43,'#424a48');p(74,80,18,42,'#647069');
- p(73,71,18,8,'#7d7770');p(77,68,12,14,'#817f73');
- p(75,64,15,5,'#292b2b');p(73,66,5,12,'#2f3331');
- p(77,84,5,13,'#aeb2a3');p(84,86,8,3,'#75817b');
- p(73,114,7,21,dark);p(86,114,7,23,dark);
- p(74,128,6,4,'#70716a');p(85,130,8,3,'#77786e');
- p(68,83,8,26,'#343c39');p(93,84,6,24,'#313937');
- p(92,91,17,4,'#c2b5a0');p(94,94,16,3,'#827460');
- // Rope wraps around the wrists and tree, visible in more than one tile.
- for(let i=0;i<3;i++){p(92,91+i*4,35,2,'#b4a384');p(93,93+i*4,32,1,'#695a4d')}
- // The witness is partly visible at the left of the tree.
- p(25,80,7,11,skin);p(23,76,11,6,dark);
- p(20,91,18,32,'#333e3f');p(23,92,12,29,'#6c7670');
- p(20,119,7,16,dark);p(33,121,7,14,dark);
- p(30,83,3,2,'#23252c');
- // Distinct tree leaf silhouettes and overhanging ivy.
- for(let i=0;i<27;i++){
-  const x=(i*19+70)%144,y=(i*7+3)%38;
-  p(x,y,5+(i%4),3+(i%2),i%3?'#313f37':'#556456');
- }
- // Tape damage and neutral film grain; thin marks not text labels.
- p(0,0,144,2,'#9caaa0');p(0,142,144,2,'#20282a');
- for(let i=0;i<100;i++){
-  const x=(i*41+i*i*3)%144,y=(i*29+i*i*7)%144;
-  p(x,y,1,1,i%3===0?'#c0c6b04b':'#151d202f');
- }
- detectivePhotoImage=canvas.toDataURL('image/png');
- return detectivePhotoImage;
-}
+// Full-resolution scene, not a 144px canvas montage. The three-by-three
+// swapping puzzle still uses exactly the same indices, answer and save data.
+const detectivePhotoImage='art/reporter-evidence-remaster.svg';
+function makeDetectivePhoto(){return detectivePhotoImage;}
 
 function renderTactilePuzzle(n,raw){
  const root=$('#choices');root.replaceChildren();

@@ -24,10 +24,12 @@ function drawAtlasSprite(kind,x,y,face='down'){
  const row=CHARACTER_ATLAS_ROWS[kind];
  if(row===undefined||!characterAtlasImage||!characterAtlasImage.complete||characterAtlasImage.naturalWidth!==384||characterAtlasImage.naturalHeight!==672)return false;
  const col=({down:0,left:1,right:2,up:3})[face]??0;
+ // Party followers use idle direction sprites; joining the party must not
+ // trigger perpetual steps for Patient 05 while the other followers stand still.
  const walking=kind==='guard'
   ? s?.room==='ward'||(s?.room==='loop'&&!s?.script)
   : kind==='patient05'
-   ? !!s?.party?.includes('patient05')
+   ? false
    : s?.room==='loop'&&!s?.script;
  const frame=walking&&typeof frameTime==='number'?Math.floor(frameTime*5)%2:0;
  const {width,height,feetY}=CHARACTER_ATLAS_CELL;
